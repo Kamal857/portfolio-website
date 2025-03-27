@@ -1,20 +1,20 @@
-// Dark/Light Mode Toggle
+// Dark/Light Mode Toggle with Local Storage
 const toggleButton = document.getElementById("theme-toggle");
+const body = document.body;
+
+function setTheme(theme) {
+    body.classList.toggle("dark-mode", theme === "dark");
+    localStorage.setItem("theme", theme);
+    toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
+}
+
+// Load saved theme from localStorage
+const savedTheme = localStorage.getItem("theme") || "light";
+setTheme(savedTheme);
 
 toggleButton.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("theme", "dark");
-    } else {
-        localStorage.setItem("theme", "light");
-    }
+    setTheme(body.classList.contains("dark-mode") ? "light" : "dark");
 });
-
-// Set the initial theme based on localStorage
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) {
-    document.body.classList.add(savedTheme);
-}
 
 // Typing Effect for "Web Developer"
 const typingElement = document.querySelector(".web-developer");
@@ -23,31 +23,25 @@ let index = 0;
 
 function typeWriter() {
     if (index < textToType.length) {
-        typingElement.innerHTML += textToType.charAt(index);
+        typingElement.textContent += textToType.charAt(index);
         index++;
-        setTimeout(typeWriter, 100); // Speed of typing
+        setTimeout(typeWriter, 100);
     }
 }
 
-window.onload = () => {
-    typeWriter(); // Start typing effect when the page loads
-};
+document.addEventListener("DOMContentLoaded", typeWriter);
 
 // Scroll Animation for Sections
-const sections = document.querySelectorAll("section");
-
 const observer = new IntersectionObserver(
     (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("animate");
-                observer.unobserve(entry.target); // Stop observing once animated
+                observer.unobserve(entry.target);
             }
         });
     },
-    { threshold: 0.5 } // 50% of the section should be visible for animation to trigger
+    { threshold: 0.5 }
 );
 
-sections.forEach(section => {
-    observer.observe(section);
-});
+document.querySelectorAll("section").forEach(section => observer.observe(section));
