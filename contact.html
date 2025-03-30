@@ -1,11 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <img src="kamal.jpeg" alt="">
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - KAMAL Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  />
+  </head>
+
+  <body>
+    <nav>
+        <div class="logo">KAMAL'S PORTFOLIO</div>
+        <input type="checkbox" id="click" value="" name="" />
+      <label for="click" class="menu"><i class="fas fa-bars"></i></label>
+        <ul class="nav-links">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+          <li><a href="project.html">PROJECTS</a></li>
+          <li><button id="theme-toggle">🌙</button></li>  <!-- Dark Mode Toggle -->
+        </ul>
+      </nav>
+
+    <main>
+      <center>
+        <form action="https://sheetdb.io/api/v1/hyxfk1cglphfj" method="post">
+          <div id="table">
+            <br /><br />
+            <table>
+              <center><b>Message</b></center>
+              <br />
+              <tr>
+                <td><label for="name">Name:</label></td>
+                <td>
+                  <input
+                    type="name"
+                    name="data[Name]"
+                    id="name"
+                    placeholder="Enter your name"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><br /></td>
+              </tr>
+              <tr>
+                <td><label for="email">E-mail:</label></td>
+                <td>
+                  <input
+                    type="email"
+                    name="data[E-mail]"
+                    id="email"
+                    placeholder="Enter your emai"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><br /></td>
+              </tr>
+
+              <tr>
+                <td><label for="story">Message:</label></td>
+                <td> <textarea id="message" name="data[Message]" rows="4" cols="20"    placeholder="Write your message"> </textarea></td>
+              </tr>
+            </table>
+            <br />
+            <center>
+              <input type="submit" class="button" value="Contact" />
+            </center>
+          </div>
+        </form>
+      </center>
+      
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <p>&copy; 2025 Kamal Bohara. All Rights Reserved.</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com" target="_blank" class="social-icon"
+            >LinkedIn</a
+          >
+          <a href="https://github.com" target="_blank" class="social-icon"
+            >GitHub</a
+          >
+          <a href="https://www.twitter.com" target="_blank" class="social-icon"
+            >Twitter</a
+          >
+          <a
+            href="https://www.facebook.com/profile.php?id=100027559095582"
+            target="_blank"
+            class="social-icon"
+            >Facebook</a
+          >
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+    <!-- External JavaScript file -->
+  </body>
 </html>

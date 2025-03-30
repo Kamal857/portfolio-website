@@ -68,7 +68,7 @@ button#theme-toggle:hover {
 /* About Section */
 .about {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 50px;
     position: relative;
