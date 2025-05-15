@@ -47,6 +47,7 @@ li{
     margin: 2px;
 }
 footer{
+    margin-top: 90%;
     height: 100px;
     background-color:rgb(95, 95, 198) ;
     border-radius: 15%;
