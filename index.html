@@ -1,33 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>KAMAL-PORTFOLIO</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaquery.css">
 </head>
 
 <body>
-    <header>
-    <nav>
+    <nav id="desktop-nav">
         <div class="logo">
-            <h2>KAMAL PROTFOLIO</h2>
+          KAMAL BOHARA
         </div>
-       <div > <ul class="list">
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="about.html">ABOUT</a></li>
-            <li><a href="project.html">PROJECT</a> </li>
-            <li><a href="gallery.html">GALLERY</a></li>
-            <li><a href="contact.html">CONTACT</a></li>
-        </ul>
+        <div>
+            <ul class="list">
+                <li><a href="#about">About</a></li>
+                <li><a href="#about">Experience</a></li>
+                <li><a href="#about">Projects</a></li>
+                <li><a href="#about">Contact</a></li>
+                
+                
+            </ul>
         </div>
     </nav>
-    </header>
-    <main></main>
-    <footer>
-        
-    </footer>
+    <nav id="mobile">
+        <div class="logo">
+          KAMAL BOHARA
+        </div>
+        <div class="mobile-menu">
+             <div class="mobile-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+             </div>
+             <div class="menu-links">
+                <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                <li><a href="#about" onclick="toggleMenu()">Experience</a></li>
+                <li><a href="#about" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="#about" onclick="toggleMenu()">Contact</a></li>
+             </div>
+            
+            </div>
+       
+       
+    </nav>
+    
 </body>
-
 </html>
