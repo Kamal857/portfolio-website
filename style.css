@@ -63,9 +63,47 @@ img{
    border-radius: 20%;
 }
 
-.myself{
-   height: 100px;
-  margin-top: 300px ;
+.myself {
+  height: 100px;
+  margin-top: 300px;
   font-size: 2rem;
-  
+  padding-right: 10px;
+
+}
+button{
+  background-color: blue;
+  color: white;
+}
+
+
+.aboutho {
+      font-size: large;
+    background-color: aqua;
+    color: black;
+    margin-left: 0%;
+    margin-right: 0%;
+    border-radius: 10px;
+    padding: 2%;
+   
+
+
+}
+.intro2{
+  margin-top: 20%;
+}
+hr{
+  margin-left: 40px;
+  margin-right: 40px;
+  background-color: blue;
+  height: 10px;
+  border-radius: 10px;
+}
+
+footer{
+  margin-top: 30%;
+  background-color: aqua;
+  height:200px;
+  border-radius: 11%;
+  padding: 39px;
+
 }
