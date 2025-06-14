@@ -1,128 +1,111 @@
-// Dark/Light Mode Toggle with Local Storage
-const toggleButton = document.getElementById("theme-toggle");
-const body = document.body;
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
 
-function setTheme(theme) {
-    body.classList.toggle("dark-mode", theme === "dark");
-    localStorage.setItem("theme", theme);
-    toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
+function setCanvasSize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
+setCanvasSize();
 
-// Load saved theme from localStorage
-const savedTheme = localStorage.getItem("theme") || "light";
-setTheme(savedTheme);
-
-toggleButton.addEventListener("click", () => {
-    setTheme(body.classList.contains("dark-mode") ? "light" : "dark");
+window.addEventListener('resize', () => {
+  setCanvasSize();
+  init();
 });
 
-// Typing Effect for "Web Developer"
-const typingElement = document.querySelector(".web-developer");
-const textToType = "Web Developer";
-let index = 0;
+const particlesArray = [];
+const numberOfParticles = 100;
+const maxDistance = 120;
 
-function typeWriter() {
-    if (index < textToType.length) {
-        typingElement.textContent += textToType.charAt(index);
-        index++;
-        setTimeout(typeWriter, 100);
+const mouse = {
+  x: null,
+  y: null,
+  radius: 150
+};
+
+window.addEventListener('mousemove', function(event) {
+  mouse.x = event.x;
+  mouse.y = event.y;
+});
+
+window.addEventListener('mouseout', function() {
+  mouse.x = null;
+  mouse.y = null;
+});
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 1;
+    this.speedX = Math.random() * 1 - 0.5;
+    this.speedY = Math.random() * 1 - 0.5;
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+    if (mouse.x && mouse.y) {
+      let dx = this.x - mouse.x;
+      let dy = this.y - mouse.y;
+      let distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < mouse.radius) {
+        let angle = Math.atan2(dy, dx);
+        let moveDist = (mouse.radius - distance) / mouse.radius * 5;
+        this.x += Math.cos(angle) * moveDist;
+        this.y += Math.sin(angle) * moveDist;
+      }
     }
+  }
+
+  draw() {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
 
-document.addEventListener("DOMContentLoaded", typeWriter);
+function connectParticles() {
+  for (let a = 0; a < particlesArray.length; a++) {
+    for (let b = a + 1; b < particlesArray.length; b++) {
+      let dx = particlesArray[a].x - particlesArray[b].x;
+      let dy = particlesArray[a].y - particlesArray[b].y;
+      let distance = Math.sqrt(dx * dx + dy * dy);
 
-// Scroll Animation for Sections
-const observer = new IntersectionObserver(
-    (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("animate");
-                observer.unobserve(entry.target);
-            }
-        });
-    },
-    { threshold: 0.5 }
-);
-
-document.querySelectorAll("section").forEach(section => observer.observe(section));
-document.addEventListener("DOMContentLoaded", () => {
-    gsap.from(".fade-in", {opacity: 0, y: 50, duration: 1, stagger: 0.3});
-});
-
-// Background Animation on Mouse Move
-const bgElement = document.createElement("div");
-bgElement.classList.add("background-animation");
-document.body.appendChild(bgElement);
-
-document.addEventListener("mousemove", (event) => {
-    const { clientX: x, clientY: y } = event;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    
-    const moveX = (x / width - 0.5) * 100;
-    const moveY = (y / height - 0.5) * 100;
-    
-    bgElement.style.transform = `translate(${moveX}px, ${moveY}px)`;
-});
-// Create a canvas for the moving stars
-const canvas = document.createElement("canvas");
-document.body.appendChild(canvas);
-const ctx = canvas.getContext("2d");
-
-canvas.style.position = "fixed";
-canvas.style.top = "0";
-canvas.style.left = "0";
-canvas.style.zIndex = "-1";
-
-let stars = [];
-const numStars = 100;
-
-// Resize canvas
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    createStars();
-}
-
-// Generate stars
-function createStars() {
-    stars = [];
-    for (let i = 0; i < numStars; i++) {
-        stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 1,
-            speedX: (Math.random() - 0.5) * 0.5,
-            speedY: (Math.random() - 0.5) * 0.5
-        });
-    }
-}
-
-// Animate stars
-function animateStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "white";
-
-    stars.forEach(star => {
+      if (distance < maxDistance) {
+        let opacity = 1 - distance / maxDistance;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+        ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        star.x += star.speedX;
-        star.y += star.speedY;
-
-        // Wrap around edges
-        if (star.x < 0) star.x = canvas.width;
-        if (star.x > canvas.width) star.x = 0;
-        if (star.y < 0) star.y = canvas.height;
-        if (star.y > canvas.height) star.y = 0;
-    });
-
-    requestAnimationFrame(animateStars);
+        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+        ctx.stroke();
+      }
+    }
+  }
 }
 
-// Initialize the animation
-resizeCanvas();
-animateStars();
-window.addEventListener("resize", resizeCanvas);
+function init() {
+  particlesArray.length = 0;
+  for (let i = 0; i < numberOfParticles; i++) {
+    particlesArray.push(new Particle());
+  }
+}
 
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particlesArray.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  connectParticles();
+  requestAnimationFrame(animate);
+}
+
+init();
+animate();

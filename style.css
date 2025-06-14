@@ -1,111 +1,52 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+  padding: 0%;
+  margin: 0%;
 }
-body {
+body{
+  background-color: rgb(227, 217, 205);
   color: black;
-  font-family: Arial, sans-serif;
+  
 }
-
-nav, .nav-desktop {
-  background-color: rgb(89, 223, 223);
+nav{
+  height: 50px;
+  width: auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4.5rem;
+  text-align: center;
+  justify-content: space-around;
+  
+  background-color: rgb(138, 180, 185);
+  
+.logo,.desktop-list{
+  margin-top: 13px;
 }
-
-.logo {
-  margin-left: 20px;
-  font-size: 2rem;
-  cursor: default;
-  display: flex;
-  align-items: center;
+.logo{
+  cursor:default;
   text-decoration: none;
-  text-underline-position: none;
 }
 
-ul {
+}
+.desktop-list{
   display: flex;
-  align-items: center;
-  margin-right: 90px;
-  font-size: 1.5rem;
-  list-style: none;
-  gap: 1.2rem;
-}
 
-a {
-  text-decoration: none;
-  color: black;
-  transition: color 0.3s ease, text-decoration 0.3s ease;
-}
-
-a:hover {
-  color: rgb(152, 174, 240);
-  text-decoration: underline 0.2rem;
-}
-
-/* Intro photo section */
-#intro {
-  height: 300px;
-  width: 100%;
-  display: flex;
   justify-content: space-evenly;
 }
-/*index photo wala ho coat wala*/
-.photo{
-  height: 100px;
-  margin-top: 100px ;
+ul{
+  display: flex;
+  justify-content: space-evenly;
+  text-decoration: none;
+  list-style: none;
   
-
 }
-img{
-  height: 500px;
-   border-radius: 20%;
+li{
+  margin-left: 10px;
 }
-
-.myself {
-  height: 100px;
-  margin-top: 300px;
-  font-size: 2rem;
-  padding-right: 10px;
-
+a{
+  text-decoration: none;
+  
 }
-button{
-  background-color: blue;
-  color: white;
-}
-
-
-.aboutho {
-      font-size: large;
-    background-color: aqua;
-    color: black;
-    margin-left: 0%;
-    margin-right: 0%;
-    border-radius: 10px;
-    padding: 2%;
-   
-
-
-}
-.intro2{
-  margin-top: 20%;
-}
-hr{
-  margin-left: 40px;
-  margin-right: 40px;
-  background-color: blue;
-  height: 10px;
-  border-radius: 10px;
-}
-
-footer{
-  margin-top: 30%;
-  background-color: aqua;
-  height:200px;
-  border-radius: 11%;
-  padding: 39px;
-
+a:hover
+{
+  color: black;
+  transition: o.5s;
+  text-underline-offset: line;
 }
