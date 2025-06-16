@@ -8,16 +8,17 @@ body{
   
 }
 nav{
-  height: 50px;
+  height: 70px;
   width: auto;
   display: flex;
   text-align: center;
   justify-content: space-around;
+  font-size: 1.5rem;
   
   background-color: rgb(138, 180, 185);
   
 .logo,.desktop-list{
-  margin-top: 13px;
+  margin-top: 19px;
 }
 .logo{
   cursor:default;
@@ -46,7 +47,84 @@ a{
 }
 a:hover
 {
-  color: black;
+  color: rgb(255, 220, 220);
   transition: o.5s;
   text-underline-offset: line;
+}
+.intro{
+ height: 600px;
+    width: auto;
+    text-align: center;
+    margin-left: 310px;
+    margin-top: 60px;
+}
+.kamal{
+  display: flex;
+  text-align:left;
+  
+}
+.kamalphoto{
+ height: 400px;
+ width: 300px;
+ padding-left: 30px;
+}
+.aboutkamal{
+        height: 311px;
+    width: 311px;
+    padding-left: 45px;
+    margin-left: 126px;
+    margin-top: 135px;
+    font-size: 1.5rem;
+}
+img{
+
+height: 550px;
+width: 350px;
+border-radius: 50px;
+border-color: blue;
+margin-left: 30px;
+}
+.language{
+  height: 400px;
+  background-color: rgb(39, 36, 36);
+  color: white;
+  font-size: medium;
+  border-radius: 20px;
+  padding: 20px;
+  
+}
+.learned-lan{
+  display: flex;
+  justify-content: space-between;
+}
+.next{
+  height: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+footer{
+  height: 200px;
+  background-color: rgb(138, 180, 185);
+  border-radius: 60px;
+  padding: 19px;
+  text-align: center;
+  font-size: 1.5rem;
+  background-color: rgb(138, 180, 185);
+  color: #ccc;
+  text-align: center;
+ 
+  font-family: Arial, sans-serif;
+  background: transparent;
+  z-index: 1;
+   
 }
