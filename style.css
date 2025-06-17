@@ -9,12 +9,13 @@ body{
 }
 nav{
   height: 70px;
-  width: auto;
+  width: 100%;
   display: flex;
   text-align: center;
   justify-content: space-around;
   font-size: 1.5rem;
-  
+  position: fixed;
+  margin-top: -60px;
   background-color: rgb(138, 180, 185);
   
 .logo,.desktop-list{
@@ -78,13 +79,14 @@ a:hover
 }
 img{
 
-height: 550px;
-width: 350px;
+height: 530px;
+width: auto;
 border-radius: 50px;
 border-color: blue;
 margin-left: 30px;
+margin-top: 20px;
 }
-.language{
+.education{
   height: 400px;
   background-color: rgb(39, 36, 36);
   color: white;
@@ -93,12 +95,45 @@ margin-left: 30px;
   padding: 20px;
   
 }
-.learned-lan{
+.edu{
+  margin-left: -80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
+.experiecnce{
+  text-align: center;
+  width: 400px;
+  height: 200px;
+  border: solid grey;
+  border-radius: 40px;
+}
+.high-eductaion{
+  text-align: center;
+  width: 400px;
+  height: 200px;
+  border: solid grey;
+  border-radius: 40px;
+  
+}
+
+
+
 .next{
   height: 200px;
+}
+
+
+/* about wala section first mai ko */
+.submit{
+  height: 50px;
+  width: 80px;
+  background-color: blueviolet;
+  color: white;
+  margin-top: 30px;
+  text-align: center;
+  border-radius: 30px;
+  margin-left:90px;
+
 }
 
 
