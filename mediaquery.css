@@ -1,0 +1,90 @@
+/* =======================
+   Responsive Styles Below
+   ======================= */
+
+@media (max-width: 1024px) {
+  .intro {
+    margin-left: 100px;
+  }
+
+  .aboutkamal {
+    margin-left: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .desktop-list ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .intro {
+    margin-left: 0;
+    padding: 10px;
+    height: auto;
+  }
+
+  .kamal {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aboutkamal {
+    margin-left: 0;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  .kamalphoto {
+    padding-left: 0;
+  }
+
+  img {
+    width: 90%;
+    height: auto;
+  }
+
+  .edu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .experiecnce,
+  .high-eductaion {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .submit {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    font-size: 1rem;
+  }
+
+  .aboutkamal {
+    font-size: 1rem;
+  }
+
+  .submit {
+    width: 100px;
+    height: 40px;
+  }
+
+  .project1 {
+    flex-direction: column;
+  }
+
+  footer {
+    font-size: 1rem;
+  }
+}
