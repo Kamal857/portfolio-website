@@ -48,7 +48,7 @@ a{
 }
 a:hover
 {
-  color: rgb(255, 220, 220);
+  color: rgb(153, 47, 47);
   transition: o.5s;
   text-underline-offset: line;
 }
@@ -134,8 +134,19 @@ justify-content: space-between;
 .submit{
   height: 50px;
   width: 80px;
-  background-color: blueviolet;
-  color: white;
+  background-color: rgb(223, 191, 254);
+  color: rgb(99, 10, 10);
+  margin-top: 30px;
+  text-align: center;
+  border-radius: 30px;
+  margin-left:90px;
+
+}
+.CV{
+  height: 50px;
+  width: 80px;
+  background-color: rgb(223, 191, 254);
+  color: rgb(99, 10, 10);
   margin-top: 30px;
   text-align: center;
   border-radius: 30px;
