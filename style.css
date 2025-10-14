@@ -1,200 +1,107 @@
-*{
-  padding: 0%;
-  margin: 0%;
-}
-body{
-  background-color: rgb(227, 217, 205);
-  color: black;
-  
-}
-nav{
-  height: 70px;
-  width: 100%;
-  display: flex;
-  text-align: center;
-  justify-content: space-around;
-  font-size: 1.5rem;
-  position: fixed;
-  margin-top: -60px;
-  background-color: rgb(138, 180, 185);
-  
-.logo,.desktop-list{
-  margin-top: 19px;
-}
-.logo{
-  cursor:default;
-  text-decoration: none;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
+/* ✅ Keep header fixed at top */
+.header {
+    position: fixed;      /* Makes it stay in place */
+    top: 0;               /* Stick to top */
+    left: 0;
+    width: 100%;          /* Full width */
+    height: 80px;
+    background-color: rgb(138, 180, 185);
+    z-index: 1000;        /* Keeps it above other sections */
 }
-.desktop-list{
-  display: flex;
 
-  justify-content: space-evenly;
+/* ✅ Add padding to body or main section so content doesn’t hide under navbar */
+body {
+    padding-top: 100px;   /* Equal to navbar height */
+    background-color: beige;
 }
-ul{
-  display: flex;
-  justify-content: space-evenly;
-  text-decoration: none;
-  list-style: none;
-  
-}
-li{
-  margin-left: 10px;
-}
-a{
-  text-decoration: none;
-  
-}
-a:hover
-{
-  color: rgb(153, 47, 47);
-  transition: o.5s;
-  text-underline-offset: line;
-}
-.intro{
- height: 650px;
-    width: auto;
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6%;
     text-align: center;
-    margin-left: 310px;
-    margin-top: 60px;
 }
-.kamal{
-  display: flex;
-  text-align:left;
-  
+
+.logo img {
+    height: 100px;
 }
-.kamalphoto{
- height: 400px;
- width: 300px;
- padding-left: 30px;
+
+.nav-list {
+    flex: 1;
+    text-align: right;
 }
-.aboutkamal{
-        height: 311px;
-    width: 311px;
-    padding-left: 45px;
-    margin-left: 126px;
-    margin-top: 135px;
+
+.nav-list ul li {
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    padding: 8px 12px;
     font-size: 1.5rem;
 }
-img{
 
-height: 530px;
-width: auto;
-border-radius: 50px;
-border-color: blue;
-margin-left: 30px;
-margin-top: 20px;
-}
-.education{
-  height: 250px;
-  background-color: rgb(39, 36, 36);
-  color: white;
-  font-size: medium;
-  border-radius: 20px;
-  padding: 20px;
-  
-}
-.edu{
-  margin-left: -80px;
-  display: flex;
-  justify-content: space-evenly;
-}
-.experiecnce{
-  text-align: center;
-  width: 400px;
-  height: 200px;
-  border: solid grey;
-  border-radius: 40px;
-}
-.high-eductaion{
-  text-align: center;
-  width: 400px;
-  height: 200px;
-  border: solid grey;
-  border-radius: 40px;
-  
+.nav-list ul li a {
+    color: rgb(60, 60, 201);
+    text-decoration: none;
 }
 
-
-
-.project{
-  height: 600px;
-
-}
-.project1{
-  margin-top: 20px;
-display: flexbox;
-text-align: center;
-justify-content: space-between;
+.nav-list ul li a::after {
+    content: "";
+    width: 0%;
+    height: 2px;
+    background: rgb(22, 29, 27);
+    display: block;
+    margin: auto;
+    transition: width 0.3s ease; /* smoother hover animation */
 }
 
-
-/* about wala section first mai ko */
-.submit{
-  height: 50px;
-  width: 80px;
-  background-color: rgb(223, 191, 254);
-  color: rgb(99, 10, 10);
-  margin-top: 30px;
-  text-align: center;
-  border-radius: 30px;
-  margin-left:90px;
-
-}
-.CV{
-  height: 50px;
-  width: 80px;
-  background-color: rgb(223, 191, 254);
-  color: rgb(99, 10, 10);
-  margin-top: 30px;
-  text-align: center;
-  border-radius: 30px;
-  margin-left:90px;
-
-}
-/* About Page ko lagi code */
-
-
-.aboutwala{
-  width: 100%;
-  border-radius: 10px;
-  background-color: rgb(98, 125, 125);
-  height: 300px;
-  
-  display: flex;
-  padding-top: 2%;
-  padding-bottom: 60px;
-
-}
-.right-about{
-  height: 250px;
- background-color: rgb(97, 215, 241);
-    border-radius: 25%;
-    padding: 4%;
-    color: rgb(73, 35, 35);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin-left:200px;
-    margin-right: 200px;
-    padding-bottom: 5px;
-}
-.Team{
-  height: 400px;
-  margin-top: 2%;
-
+.nav-list ul li a:hover::after {
+    width: 100%;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+.main {
+    height: 800px;
+}
+.default1{
+    height:400px;
+    display: flex;
+    padding: 10px 0px;
+}
+.default1 .myphotoleft img{
+    margin-top: 24px;
+    height: 500px;
+    border-radius: 50px;
+}
+.myphotoleft{
+    width: 700px;
+    padding-left: 324px;
+}
+.default1 .right{
+    height: 400px;
+    padding-left: 30px;
+    padding-top: 130px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.default1 .right button{
+    height: 40px;
+    margin: 5px 0px;
+    width: 80px;
+    border-radius: 9px;
+    background-color: blueviolet;
+    
+}
+.default1 .right button a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    
+}
 footer{
   background-color: #ccc;
   height: 200px;
