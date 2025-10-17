@@ -125,7 +125,7 @@ footer{
    
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
     .nav-list{
         display: none;
 
