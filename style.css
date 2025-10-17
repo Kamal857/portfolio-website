@@ -138,4 +138,9 @@ footer{
     font-size: 1.2rem;
     text-align: center; 
     } 
+    .default1 .myphotoleft img{
+    margin-top: 24px;
+    height: 30vh;
+    border-radius: 50px;
+}
 }
