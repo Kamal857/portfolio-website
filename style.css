@@ -133,8 +133,8 @@ footer{
 
     .default1 .right{
     height: 400px;
-    margin-left: 85px;
-    padding-top: 27px;
+    margin-left: 15px;
+    padding-top: 13px;
     font-size: 1.2rem;
     text-align: center; 
     } 
@@ -143,5 +143,8 @@ footer{
     height: 30vh;
     border-radius: 42px;
     padding: 0px 21px;
-}
+    }
+    .logo{
+        margin-left: -34px;
+    }
 }
