@@ -141,6 +141,7 @@ footer{
     .default1 .myphotoleft img{
     margin-top: 24px;
     height: 30vh;
-    border-radius: 50px;
+    border-radius: 42px;
+    padding: 0px 21px;
 }
 }
