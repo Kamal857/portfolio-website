@@ -73,19 +73,20 @@ nav {
     height:400px;
     display: flex;
     padding: 10px 0px;
+    flex-wrap: wrap;
 }
 .default1 .myphotoleft img{
     margin-top: 24px;
-    height: 500px;
+    height: 60vh;
     border-radius: 50px;
 }
 .myphotoleft{
     width: 700px;
-    padding-left: 324px;
+    padding-left: 20vw;
 }
 .default1 .right{
     height: 400px;
-    padding-left: 30px;
+    padding-left: 0px;
     padding-top: 130px;
     font-size: 1.2rem;
     text-align: center;
@@ -129,6 +130,11 @@ footer{
         display: none;
 
     }
-
     
+    .default1 .right{
+    height: 400px;
+    margin-left: 85px;
+    padding-top: 27px;
+    font-size: 1.2rem;
+    text-align: center;  
 }
