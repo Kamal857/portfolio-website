@@ -130,11 +130,12 @@ footer{
         display: none;
 
     }
-    
+
     .default1 .right{
     height: 400px;
     margin-left: 85px;
     padding-top: 27px;
     font-size: 1.2rem;
-    text-align: center;  
+    text-align: center; 
+    } 
 }
