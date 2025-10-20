@@ -137,6 +137,7 @@ footer{
     padding-top: 13px;
     font-size: 1.2rem;
     text-align: center; 
+    justify-content: center;
     } 
     .default1 .myphotoleft img{
     margin-top: 24px;
