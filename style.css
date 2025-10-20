@@ -6,20 +6,25 @@
 
 /* ✅ Keep header fixed at top */
 .header {
-    position: fixed;      /* Makes it stay in place */
-    top: 0;               /* Stick to top */
+    position: fixed;
+    /* Makes it stay in place */
+    top: 0;
+    /* Stick to top */
     left: 0;
-    width: 100%;          /* Full width */
+    width: 100%;
+    /* Full width */
     height: 80px;
     background-color: rgb(138, 180, 185);
-    z-index: 1000;        /* Keeps it above other sections */
+    z-index: 1000;
+    /* Keeps it above other sections */
 }
 
 /* ✅ Add padding to body or main section so content doesn’t hide under navbar */
 body {
-    padding-top: 100px;   /* Equal to navbar height */
+    padding-top: 100px;
+    /* Equal to navbar height */
     background: #2A7B9B;
-background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(40, 88, 176, 1) 61%, rgba(54, 227, 69, 1) 95%);
+    background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(40, 88, 176, 1) 61%, rgba(54, 227, 69, 1) 95%);
 }
 
 nav {
@@ -30,6 +35,7 @@ nav {
     text-align: center;
 }
 
+
 .logo img {
     height: 100px;
 }
@@ -37,6 +43,7 @@ nav {
 .nav-list {
     flex: 1;
     text-align: right;
+    justify-content: space-between;
 }
 
 .nav-list ul li {
@@ -59,7 +66,8 @@ nav {
     background: rgba(248, 5, 215, 0.987);
     display: block;
     margin: auto;
-    transition: width 0.3s ease; /* smoother hover animation */
+    transition: width 0.3s ease;
+    /* smoother hover animation */
 }
 
 .nav-list ul li a:hover::after {
@@ -69,89 +77,99 @@ nav {
 .main {
     height: 800px;
 }
-.default1{
-    height:400px;
+
+.default1 {
+    height: 400px;
     display: flex;
     padding: 10px 0px;
     flex-wrap: wrap;
 }
-.default1 .myphotoleft img{
+
+.default1 .myphotoleft img {
     margin-top: 24px;
     height: 60vh;
     border-radius: 50px;
 }
-.myphotoleft{
+
+.myphotoleft {
     width: 700px;
     padding-left: 20vw;
 }
-.default1 .right{
+
+.default1 .right {
     height: 400px;
     padding-left: 0px;
     padding-top: 130px;
     font-size: 1.2rem;
     text-align: center;
 }
-.default1 .right button{
+
+.default1 .right button {
     height: 40px;
     margin: 5px 0px;
     width: 80px;
     border-radius: 9px;
     background-color: blueviolet;
-    
+
 }
-.default1 .right button a{
+
+.default1 .right button a {
     text-decoration: none;
     color: rgb(255, 255, 255);
-    
+
 }
- /* this code is for the about page */
- .main{
+
+/* this code is for the about page */
+.main {
     font-size: 2em;
- }
- .main hr{
+}
+
+.main hr {
     text-align: center;
     justify-content: center;
     width: 12vw;
     color: white;
- }
+}
 
-.default-about{
+.default-about {
     height: 500px;
     padding: 4vh 5vw;
     display: flex;
-    
+
 
 }
 
-.default-about .about1{
+.default-about .about1 {
     width: 35vw;
     padding-left: 7vw;
-     
+
 
 }
-.default-about .about2{
+
+.default-about .about2 {
     border: 0.3vw solid red;
-  width: 56vw;
-  border-radius: 50px;
-  height: 55vh;
-  margin: 1.vw 0vw;
-   flex-wrap: wrap;
+    width: 56vw;
+    border-radius: 50px;
+    height: 55vh;
+    margin: 1.vw 0vw;
+    flex-wrap: wrap;
 }
-.default-about .about2 p{
+
+.default-about .about2 p {
     font-size: 20px;
     padding: 30px;
-    color:black;
+    color: black;
     top: 0;
     opacity: 0;
-   position: relative;
-   animation: slideUp 2s ease-in-out 0.3s forwards;
-   transform: translateY(100px);
-   text-align: left;
+    position: relative;
+    animation: slideUp 2s ease-in-out 0.3s forwards;
+    transform: translateY(100px);
+    text-align: left;
     max-width: 800px;
     margin: 0 auto;
 }
 
- .default-about .about1 img{
+.default-about .about1 img {
     height: auto;
     width: 25vw;
     border-radius: 50%;
@@ -159,119 +177,157 @@ nav {
     position: relative;
     left: -100%;
     animation: slide 2s forwards;
-   
 
- }
 
- @keyframes slide{
-    to{
+}
+
+.mobile {
+    display: none;
+}
+
+@keyframes slide {
+    to {
         left: 0;
     }
 
- }
- @keyframes slideUp {
-  to {
-     transform: translateY(0);   /* final position */
-     opacity: 1;
-  }
 }
 
-footer{
-  background-color:  rgb(0, 99, 110);
-  height: 200px;
-  width: auto;
-  padding-left: -71p;
-  background-color: rgb(0, 99, 110);
-  border-radius: 60px;
-  padding: 19px;
-  text-align: center;
-  font-size: 1.5rem;
-  background-color:rgb(0, 99, 110);
-  color: rgb(0, 99, 110);
-  text-align: center;
- 
-  font-family: Arial, sans-serif;
-  background: transparent;
-  z-index: 1;
-  
-   
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+        /* final position */
+        opacity: 1;
+    }
+}
+
+footer {
+    background-color: rgb(0, 99, 110);
+    height: 200px;
+    width: auto;
+    padding-left: -71p;
+    background-color: rgb(0, 99, 110);
+    border-radius: 60px;
+    padding: 19px;
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: rgb(0, 99, 110);
+    color: rgb(0, 99, 110);
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+    background: transparent;
+    z-index: 1;
+
+
 }
 
 @media (max-width:768px) {
-    .nav-list{
+    .mobile {
+        display: flex;
+        justify-content: space-between;
+        text-align: center width: 100%;
+        padding: 0 20px;
+    }
+
+    .nav-list-mobile {
+        text-align: right;
+    }
+
+    .navlist-mobile i {
+        font-size: 30px;
+        color: #000;
+        cursor: pointer;
+    }
+
+
+    /*This is for index page */
+    .nav-list .menu {
+        font-size: 20px;
+        display: block;
+    }
+
+    .nav-list {
         display: none;
 
     }
 
-    .default1 .right{
-    height: 400px;
-    margin-left: 10vw;
-    padding-top: 2vw;
-    font-size: 1.2rem;
-    text-align: center; 
-    justify-content: center;
-    } 
-    .default1 .myphotoleft img{
-    margin-top: 24px;
-    height: 30vh;
-    border-radius: 42px;
-    padding: 0px 21px;
+    .default1 .right {
+        height: 400px;
+        margin-left: 10vw;
+        padding-top: 2vw;
+        font-size: 1.2rem;
+        text-align: center;
+        justify-content: center;
     }
-    .logo{
+
+    .default1 .myphotoleft img {
+        margin-top: 24px;
+        height: 30vh;
+        border-radius: 42px;
+        padding: 0px 21px;
+    }
+
+    .logo {
         margin-left: -34px;
     }
 
     /* this code is for making responsive about page*/
-    .main{
+    .main {
         font-size: medium;
-        
+
     }
-    .main .hrabout{
+
+    .main .hrabout {
         width: 22vw;
     }
-    .default-about{
-    height: 500px;
-    padding: 4vh 5vw;
-    display: flex;
-    flex-wrap: wrap;
+
+    .default-about {
+        height: 500px;
+        padding: 4vh 5vw;
+        display: flex;
+        flex-wrap: wrap;
     }
+
     /* image wala ko ho yo */
-    .default-about .about1{
-    width: 35vw;
-    padding-left: 32vw;
-    height: 129px;
-     }
+    .default-about .about1 {
+        width: 35vw;
+        padding-left: 32vw;
+        height: 129px;
+    }
+
     /*paragraph wala ko ho yo */
-    .default-about .about2{
-    border: 0.3vw solid red;
-    width: 88vw;
-    border-radius: 50px;
-    height: 50vh;
-    margin: 1.vw 0vw;
-    flex-wrap: wrap;
-   }
-   .default-about .about2 p{
-    font-size: 15px;
-    padding: 15px;
-    color:black;
-    top: 0;
-    opacity: 0;
-   position: relative;
-   animation: slideUp 2s ease-in-out 0.3s forwards;
-   transform: translateY(100px);
-   text-align: left;
-    max-width: 800px;
-    margin: 0 auto;
-   }
- .default-about .about1 img{
-    height: auto;
-    width: 25vw;
-    border-radius: 50%;
-    border: 0.3vw solid rgb(227, 43, 43);
-    position: relative;
-    left: -10%;
-    animation: slide 2s forwards;
+    .default-about .about2 {
+        border: 0.3vw solid red;
+        width: 88vw;
+        border-radius: 50px;
+        height: 50vh;
+        margin: 1.vw 0vw;
+        flex-wrap: wrap;
+    }
+
+    .default-about .about2 p {
+        font-size: 15px;
+        padding: 15px;
+        color: black;
+        top: 0;
+        opacity: 0;
+        position: relative;
+        animation: slideUp 2s ease-in-out 0.3s forwards;
+        transform: translateY(100px);
+        text-align: left;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .default-about .about1 img {
+        height: auto;
+        width: 25vw;
+        border-radius: 50%;
+        border: 0.3vw solid rgb(227, 43, 43);
+        position: relative;
+        left: -10%;
+        animation: slide 2s forwards;
 
 
-   }
+    }
 }
