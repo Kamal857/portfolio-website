@@ -98,6 +98,8 @@ nav {
     position: relative;
     left: -60%;
     animation:move 2s forwards ;
+     animation-name: slide;
+    animation-delay: 0.2s;
 }
 
 .myphotoleft {
@@ -166,7 +168,7 @@ nav {
     width: 56vw;
     border-radius: 50px;
     height: 55vh;
-    margin: 1.vw 0vw;
+    margin: 1vw 0vw;
     flex-wrap: wrap;
 }
 
@@ -192,6 +194,7 @@ nav {
     position: relative;
     left: -100%;
     animation: slide 2s forwards;
+   
 
 
 }
@@ -255,7 +258,7 @@ footer {
     .mobile {
         display: flex;
         justify-content: space-between;
-        text-align: center width: 100%;
+        text-align: center
         padding: 0 20px;
     }
 
@@ -330,7 +333,7 @@ footer {
         border: 0.3vw solid red;
         width: 88vw;
         border-radius: 50px;
-        height: 50vh;
+        height: 59vh;
         margin: 1.vw 0vw;
         flex-wrap: wrap;
     }
@@ -355,8 +358,10 @@ footer {
         border-radius: 50%;
         border: 0.3vw solid rgb(227, 43, 43);
         position: relative;
+        animation-name: slide;
         left: -10%;
         animation: slide 2s forwards;
+        animation-delay: 1s;
 
 
     }
