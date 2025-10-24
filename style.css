@@ -85,10 +85,36 @@ nav {
     transform: translateY(100px);
 }
 .default1 {
-    height: 400px;
+    height: 100vh;
     display: flex;
     padding: 10px 0px;
     flex-wrap: wrap;
+}
+.default2{
+    height: 50vh;
+    background-color:orangered;
+    position: relative;
+}
+.custom-shape-divider-bottom-1761311174 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1761311174 svg {
+    position: relative;
+    display: block;
+    width: calc(166% + 1.3px);
+    height: 155px;
+}
+
+.custom-shape-divider-bottom-1761311174 .shape-fill {
+    
+    fill: #e6f2f7;
 }
 
 .default1 .myphotoleft img {
@@ -113,7 +139,8 @@ nav {
     padding-top: 130px;
     font-size: 1.2rem;
     text-align: center;
-      top: 0;
+    align-items: center;
+    top: 0;
     opacity: 0;
     position: relative;
     animation: slideUp 2s ease-in-out 0.3s forwards;
@@ -139,6 +166,7 @@ nav {
 /* this code is for the about page */
 .main {
     font-size: 2em;
+    height: 400vh;
 }
 
 .main hr {
@@ -233,28 +261,59 @@ nav {
     
 }
 
-footer {
-    background-color: rgb(0, 99, 110);
-    height: 200px;
-    width: 100%;
-    padding-left: -71p;
-    background-color: rgb(0, 99, 110);
-    border-radius: 60px;
-    padding: 19px;
-    text-align: center;
-    font-size: 1.5rem;
-    background-color: rgb(0, 99, 110);
-    color: rgb(0, 99, 110);
-    text-align: center;
-
-    font-family: Arial, sans-serif;
-    background: transparent;
-    z-index: 1;
-
-
+.footer {
+  width: 100%;
+  height: 200px;
+  border-radius: 60px;
+  padding: 19px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: Arial, sans-serif;
+  background-color: rgb(0, 99, 110);
+  color: white;
+  z-index: 1;
 }
 
+/* Social links */
+.footer .social-links {
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+.footer .social-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer .facebook {
+  color: #4267B2;
+}
+
+.footer .github {
+  color: #fff;
+}
+
+.footer .linkedin {
+  color: #0077B5;
+}
+
+.footer .social-links a:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+.footer p {
+  font-size: 14px;
+  color: #eee;
+  margin-top: 10px;
+}
+
+
 @media (max-width:768px) {
+    .default2{
+        display: none;
+    }
     .mobile {
         display: flex;
         justify-content: space-between;
