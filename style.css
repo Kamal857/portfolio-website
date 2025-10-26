@@ -345,6 +345,7 @@ nav {
 
     .default1 .right {
         height: 400px;
+        width: 90vw;
         margin-left: 3vw;
         padding-top: 2vw;
         font-size: 1.2rem;
