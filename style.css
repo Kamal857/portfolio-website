@@ -118,27 +118,47 @@ nav {
   height: 40vh;
   border-radius: 25%;
   flex-wrap: wrap;
+  margin-left: -200px;
  
 
 }
-.home-default2left h4{
+.home-default2left h4,.home-default2right h4{
     font-size: 1.4em;
 }
-.home-default2left ul li{
+.home-default2left ul li,.home-default2right ul li{
     font-size: 0.7em;
     text-align: center;
     flex: 1;
     text-decoration: none;
     list-style: none;
-    padding-top: 6vh;
+    padding-top: 4vh;
     color: rgb(17, 1, 1);
-    text-align: left;
-    padding-left: 2%;
+    text-align: center;
+   
 
 }
-.home-default2left ul li a{
+.home-default2left ul li a,.home-default2right ul li a{
     text-decoration: none;
     color: inherit;
+}
+.home-default2left ul li i,.home-default2right ul li i{
+    align-items: left;
+}
+.home-default2right ul{
+    display: flex;
+    padding-top: 10%;
+}
+.ri-html5-line{
+    font-size: 50px;
+}
+.ri-css3-fill{
+font-size: 50px;
+}
+.ri-javascript-fill{
+font-size: 50px;
+}
+.ri-php-fill{
+font-size: 50px;
 }
 
 
@@ -450,4 +470,67 @@ nav {
 
 
     }
+    /* This section is  for the default2 which is the educationa and skill section*/
+    .default2{
+    height: 800px;
+    background-color:rgb(23, 101, 197);
+    position: relative;
+    color: rgb(32, 28, 28);
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10%;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1px
+    ;
+}
+.home-default2right{
+ border: 3px solid red;
+  width: 351px;
+  height: 300px;
+  border-radius: 25%;
+  flex-wrap: wrap;
+  
+
+}
+.home-default2left{
+ border: 3px solid red;
+  width: 351px;
+  height: 300px;
+  border-radius: 25%;
+  flex-wrap: wrap;
+  margin-left: 0.3px;
+ 
+
+}
+.home-default2left h4,.home-default2right h4{
+    font-size: 1.4em;
+    padding-top: 40px;
+}
+.home-default2left ul li,.home-default2right ul li{
+    font-size: 1.2em;
+    text-align: center;
+    flex: 1;
+    text-decoration: none;
+    list-style: none;
+    padding-top: 4vh;
+    color: rgb(17, 1, 1);
+    text-align: center;
+    
+
+}
+.home-default2left ul li a,.home-default2right ul li a{
+    text-decoration: none;
+    color: inherit;
+
+}
+
+
+.home-default2left ul li i,.home-default2right ul li i{
+    align-items: left;
+}
+.home-default2right ul{
+    display: flex;
+    padding-top: 10%;
+}
 }
