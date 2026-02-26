@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me - KAMAL PORTFOLIO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <section class="header">
+        <nav>
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="Kamal Portfolio Logo"></a>
+            </div>
+            <div class="nav-list">
+                <ul>
+                    <li><a href="index.html"><b>HOME</b></a></li>
+                    <li><a href="research.html"><b>RESEARCH</b></a></li>
+                    <li><a href="#"><b>PROJECTS</b></a></li>
+                    <li><a href="contact.html"><b>CONTACT</b></a></li>
+                    <li><a href="about.html"><b>ABOUT</b></a></li>
+                </ul>
+            </div>
+            <div class="mobile">
+                <i id="menu-icon" class="ri-menu-fill"></i>
+            </div>
+        </nav>
+    </section>
+
+    <div id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="project.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="research.html">Research</a></li>
+        </ul>
+    </div>
+
+    <section class="main contact-section">
+        <div class="hero-welcome">
+            <hr class="accent-hr">
+            <h1>GET IN TOUCH</h1>
+            <hr class="accent-hr">
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-card">
+                <form action="https://formspree.io/f/mreajqwl" method="POST" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="What is this about?">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Write your message here..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span id="btnText">Send Message</span>
+                        <i id="btnIcon" class="ri-send-plane-fill"></i>
+                    </button>
+                </form>
+                <div id="formStatus" class="form-status"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const form = document.getElementById("contactForm");
+        const status = document.getElementById("formStatus");
+        const submitBtn = document.getElementById("submitBtn");
+        const btnText = document.getElementById("btnText");
+        const btnIcon = document.getElementById("btnIcon");
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            // Visual feedback: Loading state
+            submitBtn.disabled = true;
+            btnText.textContent = "Sending...";
+            btnIcon.className = "ri-loader-4-line ri-spin";
+
+            const data = new FormData(event.target);
+
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = "✨ Message sent successfully! I'll get back to you soon.";
+                    status.className = "form-status success active";
+                    form.reset();
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            status.innerHTML = "❌ Oops! There was a problem submitting your form.";
+                        }
+                        status.className = "form-status error active";
+                    });
+                }
+            }).catch(error => {
+                status.innerHTML = "❌ Oops! Connection error. Please try again later.";
+                status.className = "form-status error active";
+            }).finally(() => {
+                // Reset button state
+                submitBtn.disabled = false;
+                btnText.textContent = "Send Message";
+                btnIcon.className = "ri-send-plane-fill";
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    status.className = "form-status";
+                }, 5000);
+            });
+        }
+        form.addEventListener("submit", handleSubmit);
+    </script>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.facebook.com/kamal.bohara.573128" target="_blank" class="facebook">
+                <i class="fab fa-facebook fa-lg"></i>
+            </a>
+            <a href="https://github.com/Kamal857" target="_blank" class="github">
+                <i class="fab fa-github fa-lg"></i>
+            </a>
+            <a href="https://linkedin.com/in/kamal-bohara-a00629331" target="_blank" class="linkedin">
+                <i class="fab fa-linkedin fa-lg"></i>
+            </a>
+        </div>
+        <p>© 2025 Kamal Bohara. All rights reserved.</p>
+    </footer>
+    <script src="java.js"></script>
+</body>
+
+</html>

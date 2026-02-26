@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KAMAL-PORTFOLIO</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -15,109 +18,260 @@
   <section class="header">
     <nav>
       <div class="logo">
-        <a href="index.html"><img src="logo.png" alt="logo" srcset=""></a>
-
+        <a href="index.html"><img src="logo.png" alt="Kamal Portfolio Logo"></a>
       </div>
       <div class="nav-list">
         <ul>
           <li><a href="index.html"><b>HOME</b></a></li>
           <li><a href="research.html"><b>RESEARCH</b></a></li>
           <li><a href="#"><b>PROJECTS</b></a></li>
-          <li><a href="#"><b>CONTACT</b></a></li>
+          <li><a href="contact.html"><b>CONTACT</b></a></li>
           <li><a href="about.html"><b>ABOUT</b></a></li>
 
         </ul>
 
 
       </div>
-     <!-- Top-right toggleable sidebar -->
       <div class="mobile">
-        <div id="sidebar" class="sidebar">
-  <ul class="sidebar-menu">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="project.html">Projects</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="research.html">Research</a></li>
-
-  </ul>
-</div>
-
-<!-- Menu icon -->
-<i id="menu-icon" class="ri-menu-fill" style="font-size:30px; cursor:pointer; position:fixed; top:10px; right:10px; z-index:1100;"></i>
-
-
+        <i id="menu-icon" class="ri-menu-fill"></i>
       </div>
-
-
-
-
     </nav>
-
   </section>
 
+  <!-- Top-right toggleable sidebar -->
+  <div id="sidebar" class="sidebar">
+    <ul class="sidebar-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="project.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="research.html">Research</a></li>
+    </ul>
+  </div>
+
+
+
+
+  <!-- Sidebar and main content follow -->
+
+  <!-- Hero Section -->
+  <section class="main hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="hero-greeting">Hi, I'm</span>
+        <h2 class="hero-name">KAMAL BOHARA</h2>
+        <div class="hero-taglines">
+          <span class="tagline tech">TECH-ENTHUSIAST</span>
+          <span class="tagline web">WEB-DEVELOPER</span>
+        </div>
+        <p class="hero-description">
+          Building digital experiences that blend engineering excellence with creative design.
+        </p>
+        <div class="hero-btns">
+          <a href="about.html" class="btn btn-primary">About Me</a>
+          <a href="https://drive.google.com/file/d/1M1e7nNCJDvMgp8N6n_iEUuwJbKwRuNz9/view?usp=sharing" target="_blank"
+            class="btn btn-secondary">Download CV</a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <div class="image-wrapper">
+          <img src="pg.jpg" alt="Kamal Bohara - Portrait" class="hero-img">
+          <div class="image-accent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="default2">
+    <div class="home-default2left">
+      <h4 class="section-card-title">Education</h4>
+      <ul class="edu-list">
+        <li>
+          <div class="edu-icon"><i class="ri-school-line"></i></div>
+          <div class="edu-info">
+            <span class="edu-year">SEE</span>
+            <p>MALAKHETI VISION ACADEMY</p>
+          </div>
+        </li>
+        <li>
+          <div class="edu-icon"><i class="ri-school-line"></i></div>
+          <div class="edu-info">
+            <span class="edu-year">+2</span>
+            <a href="https://nastss.edu.np/" target="_blank">NAST SECONDARY SCHOOL</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="home-default2right">
+      <h4 class="section-card-title">Skills</h4>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <i class="ri-html5-fill" style="color: #e34c26;"></i>
+          <span>HTML5</span>
+        </div>
+        <div class="skill-item">
+          <i class="ri-css3-fill" style="color: #264de4;"></i>
+          <span>CSS3</span>
+        </div>
+        <div class="skill-item">
+          <i class="ri-javascript-fill" style="color: #f7df1e;"></i>
+          <span>JavaScript</span>
+        </div>
+        <div class="skill-item">
+          <i class="ri-php-fill" style="color: #777bb4;"></i>
+          <span>PHP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section Consolidated -->
   <section class="main">
-    <p>
-      <center><b>
-          <h1>WELCOME TO MY SPACE</h3>
-        </b></center>
-      <center>
-        <Hr width="30%">
-      </center>
-    </p>
-    <section class="default1">
-      <div class="myphotoleft">
-        <img src="pg.jpg" alt="">
+    <div class="hero-welcome">
+      <hr class="accent-hr">
+      <h1>ABOUT ME</h1>
+      <hr class="accent-hr">
+    </div>
+    <div class="default-about">
+      <div class="about1">
+        <img src="kamal.jpg" alt="Kamal Bohara Portrait">
       </div>
-      <div class="right">
-        <b style="color: red;padding-bottom: 5px;">
-          <h2>Hi, I'm KAMAL BOHARA</h2>
-        </b>
-        <b style="color: rgb(0, 17, 255);padding: 2px 0px;">
-          <h2>TECH-ENTHUSIAST</h2>
-        </b>
-        <b style="color: rgb(121, 27, 27);padding-top: 5px;">
-          <h2>WEB-DEVELOPER</h2>
-        </b>
-        <button><a href="about.html">About Me</a></button><br>
-        <button><a href="https://drive.google.com/file/d/1M1e7nNCJDvMgp8N6n_iEUuwJbKwRuNz9/view?usp=sharing">Download CV</a></button>
+      <div class="about2">
+        <p>
+          I’m <b>Kamal Bohara</b>, a passionate and forward-thinking Computer Engineering student from Nepal.
+          I’m driven by curiosity and a strong desire to understand how technology can solve real-world
+          problems and make life easier. <br>
+
+          I enjoy exploring areas such as software development, research, and emerging technologies that
+          shape the future of innovation. My journey in computer science started
+          from curiosity and has
+          evolved into a commitment to build meaningful, creative, and efficient solutions. <br>
+
+          Currently, I’m involved in projects that blend engineering, creativity, and problem-solving, from
+          designing simple web applications to experimenting with futuristic concepts. I love learning new
+          tools, collaborating with like-minded people, and constantly improving my technical and creative
+          skills. <br>
+
+          Beyond coding, I enjoy reading, discovering new ideas, and brainstorming innovative ways to
+          contribute to the digital world. <br>
+
+          <b>Kamal Bohara</b><br>
+          Email:<a href="mailto:boharakamal857@gmail.com">boharakamal857@gmail.com</a>
+        </p>
       </div>
-    </section>
-
-    <section class="default2">
-      <center><b>
-          <h4></h4>
-        </b></center>
-      <div class="home-default2left">
-        <center><b>
-            <h4>Education</h4>
-          </b></center>
-        <ul>
-          <li><i class="ri-school-line"></i>SEE: MALAKHETI VISION ACADEMY</li>
-          <li><a href="https://nastss.edu.np/"><i class="ri-school-line"></i>+2: NAST SECONDARY SCHOOL</a></li>
-
-        </ul>
-
-      </div>
-      <div class="home-default2right">
-        <center><b>
-            <h4>Skills</h4>
-          </b></center>
-        <ul>
-          <li><i class="ri-html5-line"></i></li>
-          <li><i class="ri-css3-fill"></i></a></li>
-          <li> <i class="ri-javascript-fill"></i></a></li>
-          <li> <i class="ri-php-fill"></i></li>
-        </ul>
-
-
-
-      </div>
-    </section>
-    
-
-
+    </div>
   </section>
+
+  <!-- Contact Section Consolidated -->
+  <section class="main contact-section">
+    <div class="hero-welcome">
+      <hr class="accent-hr">
+      <h1>GET IN TOUCH</h1>
+      <hr class="accent-hr">
+    </div>
+
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>Feel free to reach out for collaborations or just a friendly hello!</p>
+        <div class="info-details">
+          <div class="info-item">
+            <i class="ri-mail-line"></i>
+            <span>boharakamal857@gmail.com</span>
+          </div>
+          <div class="info-item">
+            <i class="ri-map-pin-line"></i>
+            <span>Nepal</span>
+          </div>
+        </div>
+        <div class="social-links-panel">
+          <a href="https://github.com/Kamal857" target="_blank"><i class="ri-github-fill"></i></a>
+          <a href="https://linkedin.com/in/kamal-bohara-a00629331" target="_blank"><i
+              class="ri-linkedin-box-fill"></i></a>
+          <a href="https://www.facebook.com/kamal.bohara.573128" target="_blank"><i
+              class="ri-facebook-circle-fill"></i></a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <form action="https://formspree.io/f/mreajqwl" method="POST" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="What is this about?">
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span id="btnText">Send Message</span>
+            <i id="btnIcon" class="ri-send-plane-fill"></i>
+          </button>
+        </form>
+        <div id="formStatus" class="form-status"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("formStatus");
+    const submitBtn = document.getElementById("submitBtn");
+    const btnText = document.getElementById("btnText");
+    const btnIcon = document.getElementById("btnIcon");
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      submitBtn.disabled = true;
+      btnText.textContent = "Sending...";
+      btnIcon.className = "ri-loader-4-line ri-spin";
+      const data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          status.innerHTML = "✨ Message sent successfully! I'll get back to you soon.";
+          status.className = "form-status success active";
+          form.reset();
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+            } else {
+              status.innerHTML = "❌ Oops! There was a problem submitting your form.";
+            }
+            status.className = "form-status error active";
+          });
+        }
+      }).catch(error => {
+        status.innerHTML = "❌ Oops! Connection error. Please try again later.";
+        status.className = "form-status error active";
+      }).finally(() => {
+        submitBtn.disabled = false;
+        btnText.textContent = "Send Message";
+        btnIcon.className = "ri-send-plane-fill";
+        setTimeout(() => {
+          status.className = "form-status";
+        }, 5000);
+      });
+    }
+    form.addEventListener("submit", handleSubmit);
+  </script>
+
   <footer class="footer">
     <div class="social-links">
       <a href="https://www.facebook.com/kamal.bohara.573128" target="_blank" class="facebook">
