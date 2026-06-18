@@ -101,14 +101,23 @@ nav {
     padding: 0 6%;
 }
 
-
 .logo img {
-    height: 100px;
+    max-height: 70px;
+    width: auto;
+}
+
+.mobile {
+    display: none;
 }
 
 .nav-list {
     flex: 1;
     text-align: right;
+}
+
+.nav-list ul {
+    margin: 0;
+    padding: 0;
 }
 
 .nav-list ul li {
@@ -137,6 +146,11 @@ nav {
 
 .nav-list ul li a:hover::after {
     width: 100%;
+}
+
+.nav-list ul li a.active,
+.sidebar-menu li a.active {
+    color: #9b6dff;
 }
 
 .hero-welcome {
