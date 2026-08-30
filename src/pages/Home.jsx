@@ -67,7 +67,7 @@ export default function Home() {
             <div className="hero-btns">
               <Link to="/about" className="btn btn-primary">About Me</Link>
               <a
-                href="https://drive.google.com/file/d/1M1e7nNCJDvMgp8N6n_iEUuwJbKwRuNz9/view?usp=sharing"
+                href="https://drive.google.com/file/d/1euI574Rc57PFR66aQFZ1GJMUZIF-g339/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
@@ -116,7 +116,7 @@ export default function Home() {
         </div>
         <div className="home-default2right">
           <h4 className="section-card-title">Skills</h4>
-          
+
           {/* Web Development Row */}
           <div className="skill-category">
             <div className="skill-category-header">
