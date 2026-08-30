@@ -14,7 +14,7 @@ export default function AdminStudents() {
     const params = new URLSearchParams();
     if (search) params.append('search', search);
     if (classFilter !== 'All Classes') params.append('class', classFilter);
-    const res = await fetch(`http://localhost:5000/api/students?${params}`);
+    const res = await fetch(`https://portfolio-website-os0q.onrender.com/api/students?${params}`);
     const data = await res.json();
     setStudents(data);
   };
@@ -23,7 +23,7 @@ export default function AdminStudents() {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/api/students', {
+    const res = await fetch('https://portfolio-website-os0q.onrender.com/api/students', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
@@ -41,7 +41,7 @@ export default function AdminStudents() {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this student?')) return;
-    await fetch(`http://localhost:5000/api/students/${id}`, { method: 'DELETE' });
+    await fetch(`https://portfolio-website-os0q.onrender.com/api/students/${id}`, { method: 'DELETE' });
     fetchStudents();
   };
 

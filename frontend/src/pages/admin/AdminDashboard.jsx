@@ -4,7 +4,7 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState({ students: 0, teachers: 0, classes: 6, notices: 0 });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/stats')
+    fetch('https://portfolio-website-os0q.onrender.com/api/stats')
       .then(r => r.json())
       .then(data => setStats(data))
       .catch(() => {});

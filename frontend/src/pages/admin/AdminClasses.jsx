@@ -14,7 +14,7 @@ export default function AdminClasses() {
 
   useEffect(() => {
     // Fetch students and compute counts per class
-    fetch('http://localhost:5000/api/students')
+    fetch('https://portfolio-website-os0q.onrender.com/api/students')
       .then(r => r.json())
       .then(students => {
         const c = {};

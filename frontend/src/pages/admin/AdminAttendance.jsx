@@ -12,7 +12,7 @@ export default function AdminAttendance() {
 
   // Load students for the selected class
   useEffect(() => {
-    fetch(`http://localhost:5000/api/students?class=${encodeURIComponent(selectedClass)}`)
+    fetch(`https://portfolio-website-os0q.onrender.com/api/students?class=${encodeURIComponent(selectedClass)}`)
       .then(r => r.json())
       .then(data => {
         setStudents(data);
@@ -27,7 +27,7 @@ export default function AdminAttendance() {
 
   // Load existing attendance for the date
   useEffect(() => {
-    fetch(`http://localhost:5000/api/attendance?class=${encodeURIComponent(selectedClass)}&date=${selectedDate}`)
+    fetch(`https://portfolio-website-os0q.onrender.com/api/attendance?class=${encodeURIComponent(selectedClass)}&date=${selectedDate}`)
       .then(r => r.json())
       .then(records => {
         if (records.length > 0) {
@@ -59,7 +59,7 @@ export default function AdminAttendance() {
       date: selectedDate,
       status: attendance[s.studentId] || 'Absent',
     }));
-    const res = await fetch('http://localhost:5000/api/attendance', {
+    const res = await fetch('https://portfolio-website-os0q.onrender.com/api/attendance', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ records }),

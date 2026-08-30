@@ -7,7 +7,7 @@ export default function AdminNotices() {
   const [msg, setMsg] = useState({ text: '', type: '' });
 
   const fetchNotices = async () => {
-    const res = await fetch('http://localhost:5000/api/notices');
+    const res = await fetch('https://portfolio-website-os0q.onrender.com/api/notices');
     const data = await res.json();
     setNotices(data);
   };
@@ -16,7 +16,7 @@ export default function AdminNotices() {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/api/notices', {
+    const res = await fetch('https://portfolio-website-os0q.onrender.com/api/notices', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
@@ -34,7 +34,7 @@ export default function AdminNotices() {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this notice?')) return;
-    await fetch(`http://localhost:5000/api/notices/${id}`, { method: 'DELETE' });
+    await fetch(`https://portfolio-website-os0q.onrender.com/api/notices/${id}`, { method: 'DELETE' });
     fetchNotices();
   };
 
