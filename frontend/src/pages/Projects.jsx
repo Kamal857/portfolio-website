@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API = 'http://localhost:5000';
+
 export default function Projects() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPw, setShowPw]     = useState(false);
   const navigate = useNavigate();
 
   const [statusMessage, setStatusMessage] = useState({ text: '', type: '' });
@@ -11,28 +14,42 @@ export default function Projects() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setStatusMessage({ text: 'Logging in...', type: 'info' });
-    
+
     try {
-      const response = await fetch('https://portfolio-website-os0q.onrender.com/api/login', {
+      // ── 1. Try Admin login (username + password) ──────────────────
+      const adminRes = await fetch(`${API}/api/login`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        setStatusMessage({ text: `Success: ${data.message}`, type: 'success' });
-        
-        // Wait briefly for the user to see the success message, then redirect
-        setTimeout(() => {
-          navigate('/admin/dashboard');
-        }, 1000);
-      } else {
-        setStatusMessage({ text: `Error: ${data.message}`, type: 'error' });
+      const adminData = await adminRes.json();
+
+      if (adminRes.ok) {
+        localStorage.setItem('adminUsername', username);
+        setStatusMessage({ text: 'Welcome, Admin! Redirecting...', type: 'success' });
+        setTimeout(() => navigate('/admin/dashboard'), 900);
+        return;
       }
+
+      // ── 2. Try Teacher login (email + password) ───────────────────
+      const teacherRes = await fetch(`${API}/api/teacher/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: username, password }),
+      });
+      const teacherData = await teacherRes.json();
+
+      if (teacherRes.ok) {
+        localStorage.setItem('teacherEmail', teacherData.teacher.email);
+        localStorage.setItem('teacherName',  teacherData.teacher.name);
+        setStatusMessage({ text: `Welcome, ${teacherData.teacher.name}! Redirecting...`, type: 'success' });
+        setTimeout(() => navigate('/teacher/dashboard'), 900);
+        return;
+      }
+
+      // ── Both failed ───────────────────────────────────────────────
+      setStatusMessage({ text: 'Invalid credentials. Check your username/email and password.', type: 'error' });
+
     } catch (error) {
       console.error('Login error:', error);
       setStatusMessage({ text: 'Network error. Is the backend running?', type: 'error' });
@@ -61,7 +78,7 @@ export default function Projects() {
           textAlign: 'left'
         }}>
           <h2 style={{ fontSize: '1.8rem', color: '#1a1a1a', marginBottom: '10px', textAlign: 'center', fontWeight: '800' }}>Aimers Academy</h2>
-          <p style={{ color: '#666', textAlign: 'center', marginBottom: statusMessage.text ? '15px' : '30px' }}>Student Portal Login</p>
+          <p style={{ color: '#666', textAlign: 'center', marginBottom: statusMessage.text ? '15px' : '30px' }}>Login</p>
           
           {statusMessage.text && (
             <div style={{ 
@@ -94,29 +111,35 @@ export default function Projects() {
                   fontSize: '1rem',
                   transition: 'border-color 0.3s'
                 }}
-                placeholder="Enter your username"
+                placeholder="Username or Email"
                 required
               />
             </div>
             
             <div>
               <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#333', fontSize: '0.95rem' }}>Password</label>
-              <input 
-                type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '12px 15px',
-                  borderRadius: '10px',
-                  border: '1px solid #ddd',
-                  outline: 'none',
-                  fontSize: '1rem',
-                  transition: 'border-color 0.3s'
-                }}
-                placeholder="Enter your password"
-                required
-              />
+              <div style={{ position: 'relative' }}>
+                <input 
+                  type={showPw ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 44px 12px 15px',
+                    borderRadius: '10px',
+                    border: '1px solid #ddd',
+                    outline: 'none',
+                    fontSize: '1rem',
+                    boxSizing: 'border-box',
+                  }}
+                  placeholder="Password"
+                  required
+                />
+                <button type="button" onClick={() => setShowPw(v => !v)}
+                  style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#666', fontSize: '1.1rem' }}>
+                  <i className={showPw ? 'ri-eye-off-line' : 'ri-eye-line'} />
+                </button>
+              </div>
             </div>
             
             <button 
@@ -128,9 +151,7 @@ export default function Projects() {
             </button>
           </form>
           
-          <div style={{ marginTop: '20px', textAlign: 'center' }}>
-            <a href="#" style={{ color: '#0ea5e9', textDecoration: 'none', fontSize: '0.9rem', fontWeight: '600' }}>Forgot Password?</a>
-          </div>
+
         </div>
 
       </section>

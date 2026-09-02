@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
+
+const API = "http://localhost:5000";
 
 export default function AdminTeachers() {
   const [teachers, setTeachers] = useState([]);
-  const [formData, setFormData] = useState({ name: '', subject: '', email: '' });
+  const [formData, setFormData] = useState({ name: '', subject: '', email: '', password: '', phone: '', assignedClass: '' });
+  const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState({ text: '', type: '' });
   const [showForm, setShowForm] = useState(false);
 
   const fetchTeachers = async () => {
     try {
-      const response = await fetch('https://portfolio-website-os0q.onrender.com/api/teachers');
+      const response = await fetch(`${API}/api/teachers`);
       const data = await response.json();
       setTeachers(data);
     } catch (error) {
@@ -24,27 +27,68 @@ export default function AdminTeachers() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleAddTeacher = async (e) => {
+  const handleEditClick = (teacher) => {
+    setEditingId(teacher._id);
+    setFormData({ 
+      name: teacher.name || '', 
+      subject: teacher.subject || '', 
+      email: teacher.email || '', 
+      password: '', // Blank by default, enter new password to reset
+      phone: teacher.phone || '',
+      assignedClass: teacher.assignedClass || ''
+    });
+    setShowForm(true);
+    setMessage({ text: '', type: '' });
+  };
+
+  const handleAddClick = () => {
+    setEditingId(null);
+    setFormData({ name: '', subject: '', email: '', password: '', phone: '', assignedClass: '' });
+    setShowForm(true);
+    setMessage({ text: '', type: '' });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://portfolio-website-os0q.onrender.com/api/teachers', {
-        method: 'POST',
+      const isEditing = !!editingId;
+      const url = isEditing ? `${API}/api/teachers/${editingId}` : `${API}/api/teachers`;
+      const method = isEditing ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+      
       const data = await response.json();
+      
       if (response.ok) {
-        setMessage({ text: 'Teacher added successfully!', type: 'success' });
-        setFormData({ name: '', subject: '', email: '' });
+        setMessage({ text: isEditing ? 'Teacher updated successfully!' : 'Teacher added successfully!', type: 'success' });
+        setFormData({ name: '', subject: '', email: '', password: '', phone: '', assignedClass: '' });
         setShowForm(false);
+        setEditingId(null);
         fetchTeachers();
       } else {
-        setMessage({ text: data.message || 'Error adding teacher', type: 'error' });
+        setMessage({ text: data.message || 'Error processing request', type: 'error' });
       }
     } catch (error) {
-      setMessage({ text: 'Network error while adding teacher.', type: 'error' });
+      setMessage({ text: 'Network error.', type: 'error' });
     }
   };
+
+  const handleDelete = async (id) => {
+    if (!confirm('Are you sure you want to delete this teacher?')) return;
+    try {
+      await fetch(`${API}/api/teachers/${id}`, { method: 'DELETE' });
+      fetchTeachers();
+    } catch (error) {
+      console.error('Failed to delete', error);
+    }
+  };
+
+  const inputStyle = { width: "100%", padding: "10px 14px", borderRadius: "8px", border: "1px solid #cbd5e1", fontSize: "0.9rem", outline: "none", boxSizing: "border-box" };
+  const labelStyle = { display: "block", marginBottom: "6px", fontWeight: 600, color: "#334155", fontSize: "0.85rem" };
 
   return (
     <div className="admin-page-content">
@@ -53,61 +97,93 @@ export default function AdminTeachers() {
           <h1>Teachers</h1>
           <p>{teachers.length} teacher{teachers.length !== 1 ? 's' : ''} found</p>
         </div>
-        <button className="admin-btn-dark" onClick={() => setShowForm(!showForm)}>
+        <button className="admin-btn-dark" onClick={handleAddClick}>
           <i className="ri-add-line"></i> Add Teacher
         </button>
       </div>
 
-      {/* Add Teacher Form (toggleable) */}
       {showForm && (
         <div className="admin-form-card" style={{ marginBottom: '24px' }}>
-          <h3 style={{ marginBottom: '16px', fontWeight: 700 }}>New Teacher</h3>
+          <h3 style={{ marginBottom: '16px', fontWeight: 700 }}>
+            {editingId ? 'Edit Teacher Details' : 'New Teacher'}
+          </h3>
           {message.text && (
-            <div className={`admin-form-message ${message.type}`}>{message.text}</div>
+            <div style={{ padding: "10px", borderRadius: "8px", marginBottom: "16px", fontWeight: 600, fontSize: "0.85rem", background: message.type === 'success' ? '#dcfce7' : '#fee2e2', color: message.type === 'success' ? '#166534' : '#991b1b' }}>
+              {message.text}
+            </div>
           )}
-          <form onSubmit={handleAddTeacher} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-            <div style={{ flex: 1, minWidth: '160px' }}>
-              <label className="admin-label">Full Name</label>
-              <input type="text" name="name" value={formData.name} onChange={handleChange} required className="admin-input" />
+          <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div>
+              <label style={labelStyle}>Full Name</label>
+              <input type="text" name="name" value={formData.name} onChange={handleChange} required style={inputStyle} />
             </div>
-            <div style={{ flex: 1, minWidth: '160px' }}>
-              <label className="admin-label">Email Address</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required className="admin-input" />
+            <div>
+              <label style={labelStyle}>Email Address (Login ID)</label>
+              <input type="email" name="email" value={formData.email} onChange={handleChange} required style={inputStyle} />
             </div>
-            <div style={{ flex: 1, minWidth: '160px' }}>
-              <label className="admin-label">Subject Area</label>
-              <input type="text" name="subject" value={formData.subject} onChange={handleChange} required className="admin-input" />
+            <div>
+              <label style={labelStyle}>Subject Area</label>
+              <input type="text" name="subject" value={formData.subject} onChange={handleChange} required style={inputStyle} />
             </div>
-            <button type="submit" className="admin-btn-dark" style={{ height: '42px', whiteSpace: 'nowrap' }}>
-              Save Teacher
-            </button>
+            <div>
+              <label style={labelStyle}>Assigned Class (Optional)</label>
+              <input type="text" name="assignedClass" value={formData.assignedClass} onChange={handleChange} placeholder="e.g. Class 10" style={inputStyle} />
+            </div>
+            <div>
+              <label style={labelStyle}>Phone Number (Optional)</label>
+              <input type="text" name="phone" value={formData.phone} onChange={handleChange} style={inputStyle} />
+            </div>
+            <div>
+              <label style={labelStyle}>
+                {editingId ? 'Set New Password (Optional)' : 'Password'}
+              </label>
+              <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder={editingId ? 'Leave blank to keep unchanged' : 'Required for login'} style={inputStyle} required={!editingId} />
+            </div>
+            <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '10px', marginTop: '10px' }}>
+              <button type="submit" className="admin-btn-dark" style={{ padding: '10px 20px' }}>
+                {editingId ? 'Update Teacher' : 'Save Teacher'}
+              </button>
+              <button type="button" onClick={() => setShowForm(false)} style={{ padding: '10px 20px', borderRadius: '8px', border: '1px solid #cbd5e1', background: '#fff', cursor: 'pointer', fontWeight: 600 }}>
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       )}
 
-      {/* Teacher Table */}
       <div className="admin-table-container">
         <table className="admin-table">
           <thead>
             <tr>
               <th>Name</th>
               <th>Subject</th>
+              <th>Class</th>
               <th>Email</th>
-              <th>Joined</th>
+              <th>Phone</th>
+              <th style={{ textAlign: "right" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {teachers.length === 0 ? (
               <tr>
-                <td colSpan="4" className="admin-table-empty">No teachers registered yet.</td>
+                <td colSpan="6" className="admin-table-empty">No teachers registered yet.</td>
               </tr>
             ) : (
               teachers.map((teacher, index) => (
                 <tr key={teacher._id || index}>
-                  <td style={{ fontWeight: 500 }}>{teacher.name}</td>
+                  <td style={{ fontWeight: 600 }}>{teacher.name}</td>
                   <td>{teacher.subject}</td>
+                  <td>{teacher.assignedClass || "—"}</td>
                   <td>{teacher.email}</td>
-                  <td>{new Date(teacher.createdAt).toLocaleDateString()}</td>
+                  <td>{teacher.phone || "—"}</td>
+                  <td style={{ textAlign: "right" }}>
+                    <button onClick={() => handleEditClick(teacher)} style={{ background: "#e0f2fe", color: "#0284c7", border: "none", borderRadius: "6px", padding: "6px 12px", cursor: "pointer", fontWeight: 600, marginRight: "8px", fontSize: "0.8rem" }}>
+                      <i className="ri-pencil-line"></i> Edit
+                    </button>
+                    <button onClick={() => handleDelete(teacher._id)} style={{ background: "#fee2e2", color: "#dc2626", border: "none", borderRadius: "6px", padding: "6px 12px", cursor: "pointer", fontWeight: 600, fontSize: "0.8rem" }}>
+                      <i className="ri-delete-bin-line"></i> Delete
+                    </button>
+                  </td>
                 </tr>
               ))
             )}

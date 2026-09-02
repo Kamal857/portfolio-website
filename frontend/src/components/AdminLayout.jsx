@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
+
+const API = 'http://localhost:5000';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const username = localStorage.getItem('adminUsername') || 'admin';
+  const [profile, setProfile] = useState({ name: '', email: '', phone: '', address: '' });
+
+  // Fetch profile every time the route changes (so Settings updates are reflected immediately)
+  useEffect(() => {
+    fetch(`${API}/api/profile/${username}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.username) setProfile({ name: data.name || '', email: data.email || '', phone: data.phone || '', address: data.address || '' });
+      })
+      .catch(() => {});
+  }, [username, location.pathname]);
+
+  const displayName = profile.name || username;
+  const displayEmail = profile.email || `${username}@admin.local`;
+  const avatarLetter = displayName.charAt(0).toUpperCase();
+
   const handleSignOut = () => {
+    localStorage.removeItem('adminUsername');
     navigate('/projects');
   };
 
@@ -17,10 +37,9 @@ export default function AdminLayout() {
     { name: 'Results', path: '/admin/results', icon: 'ri-survey-line' },
     { name: 'Attendance', path: '/admin/attendance', icon: 'ri-calendar-check-line' },
     { name: 'Notices', path: '/admin/notices', icon: 'ri-notification-3-line' },
+    { name: 'Tests', path: '/admin/tests', icon: 'ri-file-list-3-line' },
     { name: 'Settings', path: '/admin/settings', icon: 'ri-settings-3-line' }
   ];
-
-  const currentPathName = menuItems.find(item => item.path === location.pathname)?.name || 'Admin';
 
   return (
     <div className="admin-layout">
@@ -54,8 +73,8 @@ export default function AdminLayout() {
 
         <div className="admin-sidebar-footer">
           <div className="admin-user-info">
-            <p className="admin-email">admin@malakheti.edu</p>
-            <p className="admin-role">Admin</p>
+            <p className="admin-email" title={displayEmail}>{displayEmail}</p>
+            <p className="admin-role">{profile.name ? profile.name : 'Admin'}</p>
           </div>
           <button onClick={handleSignOut} className="admin-signout-btn">
             <i className="ri-logout-box-r-line"></i>
@@ -74,8 +93,8 @@ export default function AdminLayout() {
             </button>
           </div>
           <div className="admin-header-right">
-            <span className="admin-header-email">admin@malakheti.edu</span>
-            <div className="admin-avatar">A</div>
+            <span className="admin-header-email">{displayEmail}</span>
+            <div className="admin-avatar" title={displayName}>{avatarLetter}</div>
           </div>
         </header>
 

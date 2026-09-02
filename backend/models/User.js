@@ -15,6 +15,22 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: 'student',
     },
+    name: {
+      type: String,
+      default: ''
+    },
+    email: {
+      type: String,
+      default: ''
+    },
+    phone: {
+      type: String,
+      default: ''
+    },
+    address: {
+      type: String,
+      default: ''
+    }
   },
   {
     timestamps: true,
