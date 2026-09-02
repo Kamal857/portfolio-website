@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { API } from './config';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AdminLayout from './components/AdminLayout';
@@ -30,6 +31,10 @@ import TeacherNotices from './pages/teacher/TeacherNotices';
 import TeacherSettings from './pages/teacher/TeacherSettings';
 
 export default function App() {
+  useEffect(() => {
+    // Wake up backend in background as soon as user opens the site
+    fetch(`${API}/api/ping`).catch(() => {});
+  }, []);
   return (
     <Routes>
       {/* Public portfolio routes */}
