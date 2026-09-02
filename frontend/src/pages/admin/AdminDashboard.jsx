@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { API } from '../../config';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ students: 0, teachers: 0, classes: 6, notices: 0 });
 
   useEffect(() => {
-    fetch('https://portfolio-website-os0q.onrender.com/api/stats')
+    fetch(`${API}/api/stats`)
       .then(r => r.json())
       .then(data => setStats(data))
       .catch(() => {});

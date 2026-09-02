@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const API = 'http://localhost:5000';
+import { API } from '../config';
 
 export default function Projects() {
   const [username, setUsername] = useState('');

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API } from '../../config';
 
 const CLASSES = ['Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
 const EXAMS = ['First Term', 'Second Term', 'Final Exam', 'Pre-Board'];
@@ -27,7 +28,7 @@ export default function AdminResults() {
     const params = new URLSearchParams();
     if (search) params.append('search', search);
     if (classFilter !== 'All Classes') params.append('class', classFilter);
-    const res = await fetch(`https://portfolio-website-os0q.onrender.com/api/results?${params}`);
+    const res = await fetch(`${API}/api/results?${params}`);
     const data = await res.json();
     setResults(data);
   };
@@ -47,7 +48,7 @@ export default function AdminResults() {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    const res = await fetch('https://portfolio-website-os0q.onrender.com/api/results', {
+    const res = await fetch(`${API}/api/results`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...form, total: Number(form.total), percentage: Number(form.percentage) }),
@@ -65,7 +66,7 @@ export default function AdminResults() {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this result?')) return;
-    await fetch(`https://portfolio-website-os0q.onrender.com/api/results/${id}`, { method: 'DELETE' });
+    await fetch(`${API}/api/results/${id}`, { method: 'DELETE' });
     fetchResults();
   };
 

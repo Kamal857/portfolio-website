@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API } from '../../config';
 
 const CLASS_SUBJECTS = {
   'Class 5': ['English', 'Nepali', 'Math', 'Science', 'Social', 'Computer'],
@@ -14,7 +15,7 @@ export default function AdminClasses() {
 
   useEffect(() => {
     // Fetch students and compute counts per class
-    fetch('https://portfolio-website-os0q.onrender.com/api/students')
+    fetch(`${API}/api/students`)
       .then(r => r.json())
       .then(students => {
         const c = {};

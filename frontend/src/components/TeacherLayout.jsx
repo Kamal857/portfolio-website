@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 
-const API = "http://localhost:5000";
+import { API } from "../config";
 
 export default function TeacherLayout() {
   const navigate  = useNavigate();
