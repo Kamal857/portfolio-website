@@ -9,9 +9,13 @@ export default function AdminLayout() {
 
   const username = localStorage.getItem('adminUsername') || 'admin';
   const [profile, setProfile] = useState({ name: '', email: '', phone: '', address: '' });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Fetch profile every time the route changes (so Settings updates are reflected immediately)
   useEffect(() => {
+    // Close sidebar on route change on mobile
+    setIsSidebarOpen(false);
+
     fetch(`${API}/api/profile/${username}`)
       .then(r => r.json())
       .then(data => {
@@ -43,8 +47,13 @@ export default function AdminLayout() {
 
   return (
     <div className="admin-layout">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div className="admin-sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>
+      )}
+
       {/* Sidebar */}
-      <aside className="admin-sidebar">
+      <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="admin-brand">
           <div className="admin-logo">
             <i className="ri-graduation-cap-fill"></i>
@@ -88,6 +97,9 @@ export default function AdminLayout() {
         {/* Header */}
         <header className="admin-header">
           <div className="admin-header-left">
+            <button className="admin-menu-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+              <i className="ri-menu-line"></i>
+            </button>
             <button className="admin-back-btn" onClick={() => navigate(-1)}>
               <i className="ri-arrow-left-s-line"></i>
             </button>

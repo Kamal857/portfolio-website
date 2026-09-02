@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 
 const API = "http://localhost:5000";
@@ -8,8 +8,11 @@ export default function TeacherLayout() {
   const location  = useLocation();
   const email     = localStorage.getItem("teacherEmail") || "";
   const [profile, setProfile] = useState({ name: "", subject: "", assignedClass: "" });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
+    // Close sidebar on route change on mobile
+    setIsSidebarOpen(false);
     if (!email) { navigate("/teacher/login"); return; }
     fetch(`${API}/api/teacher/profile/${encodeURIComponent(email)}`)
       .then(r => r.json())
@@ -38,7 +41,12 @@ export default function TeacherLayout() {
 
   return (
     <div className="admin-layout">
-      <aside className="admin-sidebar" style={{ background: "linear-gradient(180deg, #1e3a5f 0%, #0f172a 100%)" }}>
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div className="admin-sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>
+      )}
+
+      <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`} style={{ background: "linear-gradient(180deg, #1e3a5f 0%, #0f172a 100%)" }}>
         <div className="admin-brand">
           <div className="admin-logo" style={{ background: "linear-gradient(135deg,#0ea5e9,#6366f1)" }}>
             <i className="ri-user-star-line" />
@@ -75,6 +83,9 @@ export default function TeacherLayout() {
       <main className="admin-main">
         <header className="admin-header">
           <div className="admin-header-left">
+            <button className="admin-menu-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+              <i className="ri-menu-line"></i>
+            </button>
             <button className="admin-back-btn" onClick={() => navigate(-1)}>
               <i className="ri-arrow-left-s-line" />
             </button>
