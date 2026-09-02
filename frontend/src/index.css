@@ -1331,6 +1331,11 @@ nav {
         justify-content: center;
     }
 
+    .default2 {
+        flex-direction: column;
+        padding: 40px 6%;
+    }
+
     .hero-img {
         width: 300px;
         height: 340px;
@@ -2049,8 +2054,40 @@ body:has(.admin-layout) {
     .admin-content { padding: 16px; }
     .admin-header { padding: 14px 16px; }
     
+    .admin-page-header.split {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .admin-page-header.split button {
+        width: 100%;
+        justify-content: center;
+    }
+
     .admin-table-controls {
         flex-direction: column;
         align-items: stretch;
     }
+    
+    .admin-table-controls > * {
+        width: 100%;
+    }
+
+    .admin-form-card form {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    
+    .admin-form-card form > div {
+        flex: 1 1 100% !important;
+        width: 100%;
+    }
+    
+    .admin-form-card form button {
+        width: 100%;
+        margin-top: 8px;
+    }
 }
+
