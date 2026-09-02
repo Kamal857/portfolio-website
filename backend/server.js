@@ -10,6 +10,7 @@ const Student = require('./models/Student');
 const Notice = require('./models/Notice');
 const Result = require('./models/Result');
 const Attendance = require('./models/Attendance');
+const Test = require('./models/Test');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -101,6 +102,26 @@ app.post('/api/teachers', async (req, res) => {
     res.status(201).json(teacher);
   } catch (error) {
     res.status(500).json({ message: 'Error creating teacher' });
+  }
+});
+
+app.put('/api/teachers/:id', async (req, res) => {
+  try {
+    const { name, email, subject, password, phone, assignedClass } = req.body;
+    const teacher = await Teacher.findById(req.params.id);
+    if (!teacher) return res.status(404).json({ message: 'Teacher not found' });
+    
+    if (name) teacher.name = name;
+    if (email) teacher.email = email;
+    if (subject) teacher.subject = subject;
+    if (password !== undefined && password !== '') teacher.password = password; // Only update if a new password is provided
+    if (phone !== undefined) teacher.phone = phone;
+    if (assignedClass !== undefined) teacher.assignedClass = assignedClass;
+    
+    await teacher.save();
+    res.status(200).json({ message: 'Teacher updated successfully', teacher });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating teacher' });
   }
 });
 
@@ -227,16 +248,175 @@ app.post('/api/login', async (req, res) => {
   if (!username || !password) return res.status(400).json({ message: 'Username and password are required' });
   try {
     const user = await User.findOne({ username });
-    if (user && user.password === password) {
-      return res.status(200).json({ message: 'Login successful', username });
-    } else if (user) {
+    if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    
+    if (user.password === password) {
+      return res.status(200).json({ message: 'Login successful', username });
     } else {
-      // Demo fallback
-      return res.status(200).json({ message: 'Login successful (Demo Mode)', username });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
   } catch (error) {
-    return res.status(200).json({ message: 'Login successful (Offline Demo Mode)', username });
+    console.error('Login error:', error);
+    return res.status(500).json({ message: 'Internal server error during login' });
+  }
+});
+
+app.post('/api/register', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) return res.status(400).json({ message: 'Username and password are required' });
+  try {
+    const existing = await User.findOne({ username });
+    if (existing) {
+      return res.status(400).json({ message: 'Username already exists' });
+    }
+    const user = await User.create({ username, password });
+    return res.status(201).json({ message: 'User registered successfully', username: user.username });
+  } catch (error) {
+    console.error('Register error:', error);
+    return res.status(500).json({ message: 'Internal server error during registration' });
+  }
+});
+
+// Teacher login (by email + password)
+app.post('/api/teacher/login', async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
+  try {
+    const teacher = await Teacher.findOne({ email });
+    if (!teacher) return res.status(401).json({ message: 'Invalid credentials' });
+    if (!teacher.password) return res.status(401).json({ message: 'Password not set. Contact admin.' });
+    if (teacher.password !== password) return res.status(401).json({ message: 'Invalid credentials' });
+    return res.status(200).json({ message: 'Login successful', teacher: { _id: teacher._id, name: teacher.name, email: teacher.email, subject: teacher.subject, assignedClass: teacher.assignedClass } });
+  } catch (error) {
+    console.error('Teacher login error:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Teacher profile by email
+app.get('/api/teacher/profile/:email', async (req, res) => {
+  try {
+    const teacher = await Teacher.findOne({ email: req.params.email }).select('-password');
+    if (!teacher) return res.status(404).json({ message: 'Teacher not found' });
+    res.status(200).json(teacher);
+  } catch { res.status(500).json({ message: 'Error fetching teacher profile' }); }
+});
+
+app.put('/api/teacher/profile/:email', async (req, res) => {
+  try {
+    const { name, phone, assignedClass, password } = req.body;
+    const teacher = await Teacher.findOne({ email: req.params.email });
+    if (!teacher) return res.status(404).json({ message: 'Teacher not found' });
+    if (name) teacher.name = name;
+    if (phone !== undefined) teacher.phone = phone;
+    if (assignedClass !== undefined) teacher.assignedClass = assignedClass;
+    if (password) teacher.password = password;
+    await teacher.save();
+    res.status(200).json({ message: 'Profile updated successfully' });
+  } catch (error) {
+    console.error('Teacher profile update error:', error);
+    res.status(500).json({ message: 'Error updating profile' });
+  }
+});
+
+// ============================================================
+// TESTS
+// ============================================================
+app.get('/api/tests', async (req, res) => {
+  try {
+    const { search, class: cls, status } = req.query;
+    let query = {};
+    if (cls && cls !== 'All Classes') query.class = cls;
+    if (status && status !== 'All') query.status = status;
+    if (search) query.$or = [
+      { title: { $regex: search, $options: 'i' } },
+      { subject: { $regex: search, $options: 'i' } },
+    ];
+    const tests = await Test.find(query).sort({ date: 1 });
+    res.status(200).json(tests);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching tests' });
+  }
+});
+
+app.post('/api/tests', async (req, res) => {
+  try {
+    const { title, testType, subject, subjects, class: cls, date, time, duration, totalMarks, status } = req.body;
+    if (!title || !cls || !date || !time || !duration || totalMarks == null) {
+      return res.status(400).json({ message: 'All required fields must be filled' });
+    }
+    if (testType === 'mixed') {
+      if (!subjects || subjects.length < 2) {
+        return res.status(400).json({ message: 'Mixed test requires at least 2 subjects' });
+      }
+    } else {
+      if (!subject) return res.status(400).json({ message: 'Subject is required' });
+    }
+    const test = await Test.create({
+      title,
+      testType: testType || 'single',
+      subject: testType === 'mixed' ? 'Mixed' : subject,
+      subjects: testType === 'mixed' ? subjects : [subject],
+      class: cls, date, time, duration,
+      totalMarks: Number(totalMarks),
+    });
+    res.status(201).json(test);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating test' });
+  }
+});
+
+app.put('/api/tests/:id', async (req, res) => {
+  try {
+    const test = await Test.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!test) return res.status(404).json({ message: 'Test not found' });
+    res.status(200).json({ message: 'Test updated', test });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating test' });
+  }
+});
+
+app.delete('/api/tests/:id', async (req, res) => {
+  try {
+    await Test.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Test deleted' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting test' });
+  }
+});
+
+// ============================================================
+// PROFILE / SETTINGS
+// ============================================================
+app.get('/api/profile/:username', async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username }).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching profile' });
+  }
+});
+
+app.put('/api/profile/:username', async (req, res) => {
+  try {
+    const { name, email, phone, address, password } = req.body;
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (phone) user.phone = phone;
+    if (address) user.address = address;
+    if (password) user.password = password;
+
+    await user.save();
+    res.status(200).json({ message: 'Profile updated successfully' });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({ message: 'Error updating profile' });
   }
 });
 
