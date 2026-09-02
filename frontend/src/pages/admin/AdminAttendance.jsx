@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API } from '../../config';
 
 const CLASSES = ['Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
 
@@ -12,7 +13,7 @@ export default function AdminAttendance() {
 
   // Load students for the selected class
   useEffect(() => {
-    fetch(`https://portfolio-website-os0q.onrender.com/api/students?class=${encodeURIComponent(selectedClass)}`)
+    fetch(`${API}/api/students?class=${encodeURIComponent(selectedClass)}`)
       .then(r => r.json())
       .then(data => {
         setStudents(data);
@@ -27,7 +28,7 @@ export default function AdminAttendance() {
 
   // Load existing attendance for the date
   useEffect(() => {
-    fetch(`https://portfolio-website-os0q.onrender.com/api/attendance?class=${encodeURIComponent(selectedClass)}&date=${selectedDate}`)
+    fetch(`${API}/api/attendance?class=${encodeURIComponent(selectedClass)}&date=${selectedDate}`)
       .then(r => r.json())
       .then(records => {
         if (records.length > 0) {
@@ -59,7 +60,7 @@ export default function AdminAttendance() {
       date: selectedDate,
       status: attendance[s.studentId] || 'Absent',
     }));
-    const res = await fetch('https://portfolio-website-os0q.onrender.com/api/attendance', {
+    const res = await fetch(`${API}/api/attendance`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ records }),

@@ -1,6 +1,5 @@
-﻿import React, { useState, useEffect, useRef } from "react";
-
-const API = "http://localhost:5000";
+import React, { useState, useEffect, useRef } from "react";
+import { API } from "../../config";
 const CLASSES  = ["Class 5","Class 6","Class 7","Class 8","Class 9","Class 10"];
 const SUBJECTS = ["Mathematics","Science","English","Nepali","Social Studies","Computer","Optional Math","Physics","Chemistry","Biology","History","Geography","Economics"];
 const DURATIONS = ["30 Min","45 Min","1 Hour","1.5 Hours","2 Hours","3 Hours"];

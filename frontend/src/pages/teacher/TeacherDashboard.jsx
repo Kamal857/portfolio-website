@@ -1,6 +1,5 @@
-﻿import React, { useState, useEffect } from "react";
-
-const API = "http://localhost:5000";
+import React, { useState, useEffect } from "react";
+import { API } from "../../config";
 
 function computeStatus(date, time, duration) {
   const map = { "30 Min":30,"45 Min":45,"1 Hour":60,"1.5 Hours":90,"2 Hours":120,"3 Hours":180 };

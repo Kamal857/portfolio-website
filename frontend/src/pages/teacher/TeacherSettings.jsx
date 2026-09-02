@@ -1,5 +1,5 @@
-﻿import React, { useState, useEffect } from "react";
-const API = "http://localhost:5000";
+import React, { useState, useEffect } from "react";
+import { API } from "../../config";
 const CLASSES = ["","Class 5","Class 6","Class 7","Class 8","Class 9","Class 10"];
 
 export default function TeacherSettings() {
