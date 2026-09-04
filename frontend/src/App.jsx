@@ -10,7 +10,6 @@ import About from './pages/About';
 import Research from './pages/Research';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
-import TeacherLogin from './pages/TeacherLogin';
 
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminStudents from './pages/admin/AdminStudents';
@@ -43,9 +42,6 @@ export default function App() {
       <Route path="/research" element={<><Navbar /><Research /><Footer /></>} />
       <Route path="/projects" element={<><Navbar /><Projects /><Footer /></>} />
       <Route path="/contact" element={<><Navbar /><Contact /><Footer /></>} />
-
-      {/* Teacher login (standalone) */}
-      <Route path="/teacher/login" element={<TeacherLogin />} />
 
       {/* Admin routes */}
       <Route path="/admin" element={<AdminLayout />}>

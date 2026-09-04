@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Plus, Search, Trash2, Users } from 'lucide-react';
 import { API } from '../../config';
 
 const CLASSES = ['Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
@@ -54,7 +55,7 @@ export default function AdminStudents() {
           <p>{students.length} student{students.length !== 1 ? 's' : ''} found</p>
         </div>
         <button className="admin-btn-dark" onClick={() => setShowForm(!showForm)}>
-          <i className="ri-add-line"></i> Add Student
+          <Plus size={18} /> Add Student
         </button>
       </div>
 
@@ -84,7 +85,7 @@ export default function AdminStudents() {
 
       <div className="admin-table-controls">
         <div className="admin-search-bar">
-          <i className="ri-search-line"></i>
+          <Search size={18} className="search-icon-svg" />
           <input type="text" placeholder="Search by name or ID..." value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <select className="admin-dropdown" value={classFilter} onChange={e => setClassFilter(e.target.value)}>
@@ -93,7 +94,12 @@ export default function AdminStudents() {
         </select>
       </div>
 
-      <div className="admin-table-container">
+      <div className="results-count-summary">
+        Showing {students.length} student{students.length !== 1 ? 's' : ''}
+      </div>
+
+      {/* Desktop Table (> 768px) */}
+      <div className="desktop-results-table admin-table-container">
         <table className="admin-table">
           <thead>
             <tr>
@@ -112,14 +118,62 @@ export default function AdminStudents() {
                 <td>{s.guardian || '—'}</td>
                 <td>{s.phone || '—'}</td>
                 <td>
-                  <button onClick={() => handleDelete(s._id)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: 6, padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}>
-                    <i className="ri-delete-bin-line"></i> Delete
+                  <button onClick={() => handleDelete(s._id)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: 6, padding: '6px 12px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    <Trash2 size={14} /> Delete
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Cards (<= 768px) */}
+      <div className="mobile-results-cards">
+        {students.length === 0 ? (
+          <div className="results-empty-card">
+            <Users size={38} className="results-empty-icon" />
+            <h3>No students found</h3>
+            <p>Try changing your search or class filter.</p>
+          </div>
+        ) : students.map(s => (
+          <div key={s._id} className="result-card">
+            <div className="result-card-header">
+              <div className="result-card-user">
+                <h3 className="result-card-name">{s.name}</h3>
+                <span className="result-card-id">ID: {s.studentId}</span>
+              </div>
+              <div className="result-card-badges">
+                <span className="result-badge-class">{s.class}</span>
+                <span className="result-badge-exam">Roll {s.rollNo}</span>
+              </div>
+            </div>
+
+            <div className="result-card-stats">
+              <div className="result-stat-item">
+                <span className="result-stat-label">Guardian</span>
+                <span className="result-stat-value" style={{ fontSize: '0.9rem' }}>{s.guardian || '—'}</span>
+              </div>
+              <div className="result-stat-item">
+                <span className="result-stat-label">Phone</span>
+                <span className="result-stat-value" style={{ fontSize: '0.9rem' }}>{s.phone || '—'}</span>
+              </div>
+            </div>
+
+            <div className="result-card-actions">
+              <button
+                type="button"
+                onClick={() => handleDelete(s._id)}
+                className="result-card-btn-delete"
+                title="Delete Student"
+                aria-label="Delete student"
+              >
+                <Trash2 size={16} />
+                <span>Delete</span>
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
