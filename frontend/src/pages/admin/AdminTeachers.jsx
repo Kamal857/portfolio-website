@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Plus, Pencil, Trash2, GraduationCap } from 'lucide-react';
 import { API } from '../../config';
 
 export default function AdminTeachers() {
@@ -18,9 +19,7 @@ export default function AdminTeachers() {
     }
   };
 
-  useEffect(() => {
-    fetchTeachers();
-  }, []);
+  useEffect(() => { fetchTeachers(); }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,11 +27,11 @@ export default function AdminTeachers() {
 
   const handleEditClick = (teacher) => {
     setEditingId(teacher._id);
-    setFormData({ 
-      name: teacher.name || '', 
-      subject: teacher.subject || '', 
-      email: teacher.email || '', 
-      password: '', // Blank by default, enter new password to reset
+    setFormData({
+      name: teacher.name || '',
+      subject: teacher.subject || '',
+      email: teacher.email || '',
+      password: '',
       phone: teacher.phone || '',
       assignedClass: teacher.assignedClass || ''
     });
@@ -59,9 +58,9 @@ export default function AdminTeachers() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      
+
       const data = await response.json();
-      
+
       if (response.ok) {
         setMessage({ text: isEditing ? 'Teacher updated successfully!' : 'Teacher added successfully!', type: 'success' });
         setFormData({ name: '', subject: '', email: '', password: '', phone: '', assignedClass: '' });
@@ -86,8 +85,8 @@ export default function AdminTeachers() {
     }
   };
 
-  const inputStyle = { width: "100%", padding: "10px 14px", borderRadius: "8px", border: "1px solid #cbd5e1", fontSize: "0.9rem", outline: "none", boxSizing: "border-box" };
-  const labelStyle = { display: "block", marginBottom: "6px", fontWeight: 600, color: "#334155", fontSize: "0.85rem" };
+  const inputStyle = { width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', outline: 'none', boxSizing: 'border-box' };
+  const labelStyle = { display: 'block', marginBottom: '6px', fontWeight: 600, color: '#334155', fontSize: '0.85rem' };
 
   return (
     <div className="admin-page-content">
@@ -97,7 +96,7 @@ export default function AdminTeachers() {
           <p>{teachers.length} teacher{teachers.length !== 1 ? 's' : ''} found</p>
         </div>
         <button className="admin-btn-dark" onClick={handleAddClick}>
-          <i className="ri-add-line"></i> Add Teacher
+          <Plus size={18} /> Add Teacher
         </button>
       </div>
 
@@ -107,7 +106,7 @@ export default function AdminTeachers() {
             {editingId ? 'Edit Teacher Details' : 'New Teacher'}
           </h3>
           {message.text && (
-            <div style={{ padding: "10px", borderRadius: "8px", marginBottom: "16px", fontWeight: 600, fontSize: "0.85rem", background: message.type === 'success' ? '#dcfce7' : '#fee2e2', color: message.type === 'success' ? '#166534' : '#991b1b' }}>
+            <div style={{ padding: '10px', borderRadius: '8px', marginBottom: '16px', fontWeight: 600, fontSize: '0.85rem', background: message.type === 'success' ? '#dcfce7' : '#fee2e2', color: message.type === 'success' ? '#166534' : '#991b1b' }}>
               {message.text}
             </div>
           )}
@@ -150,7 +149,12 @@ export default function AdminTeachers() {
         </div>
       )}
 
-      <div className="admin-table-container">
+      <div className="results-count-summary">
+        Showing {teachers.length} teacher{teachers.length !== 1 ? 's' : ''}
+      </div>
+
+      {/* Desktop Table (> 768px) */}
+      <div className="desktop-results-table admin-table-container">
         <table className="admin-table">
           <thead>
             <tr>
@@ -159,7 +163,7 @@ export default function AdminTeachers() {
               <th>Class</th>
               <th>Email</th>
               <th>Phone</th>
-              <th style={{ textAlign: "right" }}>Actions</th>
+              <th style={{ textAlign: 'right' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -172,15 +176,15 @@ export default function AdminTeachers() {
                 <tr key={teacher._id || index}>
                   <td style={{ fontWeight: 600 }}>{teacher.name}</td>
                   <td>{teacher.subject}</td>
-                  <td>{teacher.assignedClass || "—"}</td>
+                  <td>{teacher.assignedClass || '—'}</td>
                   <td>{teacher.email}</td>
-                  <td>{teacher.phone || "—"}</td>
-                  <td style={{ textAlign: "right" }}>
-                    <button onClick={() => handleEditClick(teacher)} style={{ background: "#e0f2fe", color: "#0284c7", border: "none", borderRadius: "6px", padding: "6px 12px", cursor: "pointer", fontWeight: 600, marginRight: "8px", fontSize: "0.8rem" }}>
-                      <i className="ri-pencil-line"></i> Edit
+                  <td>{teacher.phone || '—'}</td>
+                  <td style={{ textAlign: 'right' }}>
+                    <button onClick={() => handleEditClick(teacher)} style={{ background: '#e0f2fe', color: '#0284c7', border: 'none', borderRadius: '6px', padding: '6px 12px', cursor: 'pointer', fontWeight: 600, marginRight: '8px', fontSize: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      <Pencil size={14} /> Edit
                     </button>
-                    <button onClick={() => handleDelete(teacher._id)} style={{ background: "#fee2e2", color: "#dc2626", border: "none", borderRadius: "6px", padding: "6px 12px", cursor: "pointer", fontWeight: 600, fontSize: "0.8rem" }}>
-                      <i className="ri-delete-bin-line"></i> Delete
+                    <button onClick={() => handleDelete(teacher._id)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '6px', padding: '6px 12px', cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      <Trash2 size={14} /> Delete
                     </button>
                   </td>
                 </tr>
@@ -188,6 +192,70 @@ export default function AdminTeachers() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Cards (<= 768px) */}
+      <div className="mobile-results-cards">
+        {teachers.length === 0 ? (
+          <div className="results-empty-card">
+            <GraduationCap size={38} className="results-empty-icon" />
+            <h3>No teachers found</h3>
+            <p>Add your first teacher using the button above.</p>
+          </div>
+        ) : teachers.map((teacher, index) => (
+          <div key={teacher._id || index} className="result-card">
+            <div className="result-card-header">
+              <div className="result-card-user">
+                <h3 className="result-card-name">{teacher.name}</h3>
+                <span className="result-card-id">{teacher.email}</span>
+              </div>
+              <div className="result-card-badges">
+                <span className="result-badge-class">{teacher.subject}</span>
+                {teacher.assignedClass && (
+                  <span className="result-badge-exam">{teacher.assignedClass}</span>
+                )}
+              </div>
+            </div>
+
+            <div className="result-card-stats">
+              <div className="result-stat-item">
+                <span className="result-stat-label">Subject</span>
+                <span className="result-stat-value" style={{ fontSize: '0.9rem' }}>{teacher.subject}</span>
+              </div>
+              <div className="result-stat-item">
+                <span className="result-stat-label">Phone</span>
+                <span className="result-stat-value" style={{ fontSize: '0.9rem' }}>{teacher.phone || '—'}</span>
+              </div>
+              <div className="result-stat-item">
+                <span className="result-stat-label">Class</span>
+                <span className="result-stat-value" style={{ fontSize: '0.9rem' }}>{teacher.assignedClass || '—'}</span>
+              </div>
+            </div>
+
+            <div className="result-card-actions">
+              <button
+                type="button"
+                onClick={() => handleEditClick(teacher)}
+                className="result-card-btn-edit"
+                title="Edit Teacher"
+                aria-label="Edit teacher"
+              >
+                <Pencil size={15} />
+                <span>Edit</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDelete(teacher._id)}
+                className="result-card-btn-delete"
+                title="Delete Teacher"
+                aria-label="Delete teacher"
+              >
+                <Trash2 size={15} />
+                <span>Delete</span>
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

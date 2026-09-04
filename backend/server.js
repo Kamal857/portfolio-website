@@ -71,6 +71,16 @@ app.post('/api/students', async (req, res) => {
   }
 });
 
+app.get('/api/students/:id', async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id);
+    if (!student) return res.status(404).json({ message: 'Student not found' });
+    res.status(200).json(student);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching student' });
+  }
+});
+
 app.delete('/api/students/:id', async (req, res) => {
   try {
     await Student.findByIdAndDelete(req.params.id);
@@ -125,6 +135,16 @@ app.put('/api/teachers/:id', async (req, res) => {
   }
 });
 
+app.get('/api/teachers/:id', async (req, res) => {
+  try {
+    const teacher = await Teacher.findById(req.params.id).select('-password');
+    if (!teacher) return res.status(404).json({ message: 'Teacher not found' });
+    res.status(200).json(teacher);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching teacher' });
+  }
+});
+
 app.delete('/api/teachers/:id', async (req, res) => {
   try {
     await Teacher.findByIdAndDelete(req.params.id);
@@ -136,6 +156,16 @@ app.delete('/api/teachers/:id', async (req, res) => {
 
 // ============================================================
 // RESULTS
+// GET by student ID string (for student profile)
+app.get('/api/results/student/:studentId', async (req, res) => {
+  try {
+    const results = await Result.find({ studentId: req.params.studentId }).sort({ createdAt: -1 });
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching student results' });
+  }
+});
+// ------------------------------------------------------------
 // ============================================================
 app.get('/api/results', async (req, res) => {
   try {
@@ -210,6 +240,16 @@ app.delete('/api/notices/:id', async (req, res) => {
 // ============================================================
 // ATTENDANCE
 // ============================================================
+// GET all attendance records for one student (for student profile)
+app.get('/api/attendance/student/:studentId', async (req, res) => {
+  try {
+    const records = await Attendance.find({ studentId: req.params.studentId }).sort({ date: -1 });
+    res.status(200).json(records);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching student attendance' });
+  }
+});
+
 app.get('/api/attendance', async (req, res) => {
   try {
     const { class: cls, date } = req.query;

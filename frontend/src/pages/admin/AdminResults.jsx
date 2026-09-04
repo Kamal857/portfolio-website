@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Plus, Search, Trash2, FileX } from 'lucide-react';
 import { API } from '../../config';
 
 const CLASSES = ['Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
 const EXAMS = ['First Term', 'Second Term', 'Final Exam', 'Pre-Board'];
-const GRADES = ['A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'F'];
 
 function calcGrade(pct) {
   if (pct >= 90) return 'A+';
@@ -78,7 +78,7 @@ export default function AdminResults() {
           <p>{results.length} result{results.length !== 1 ? 's' : ''}</p>
         </div>
         <button className="admin-btn-dark" onClick={() => setShowForm(!showForm)}>
-          <i className="ri-add-line"></i> Add Result
+          <Plus size={18} /> Add Result
         </button>
       </div>
 
@@ -122,8 +122,8 @@ export default function AdminResults() {
 
       <div className="admin-table-controls">
         <div className="admin-search-bar">
-          <i className="ri-search-line"></i>
-          <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} />
+          <Search size={18} className="search-icon-svg" />
+          <input type="text" placeholder="Search student, ID, class..." value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <select className="admin-dropdown" value={classFilter} onChange={e => setClassFilter(e.target.value)}>
           <option>All Classes</option>
@@ -131,14 +131,19 @@ export default function AdminResults() {
         </select>
       </div>
 
-      <div className="admin-table-container">
+      <div className="results-count-summary">
+        Showing {results.length} result{results.length !== 1 ? 's' : ''}
+      </div>
+
+      {/* Desktop View Table (> 768px) */}
+      <div className="desktop-results-table admin-table-container">
         <table className="admin-table">
           <thead>
             <tr><th>Student ID</th><th>Name</th><th>Class</th><th>Exam</th><th>Total</th><th>%</th><th>Grade</th><th>Status</th><th>Actions</th></tr>
           </thead>
           <tbody>
             {results.length === 0 ? (
-              <tr><td colSpan="9" className="admin-table-empty">No results</td></tr>
+              <tr><td colSpan="9" className="admin-table-empty">No results found</td></tr>
             ) : results.map(r => (
               <tr key={r._id}>
                 <td style={{ fontWeight: 600, color: '#0284c7' }}>{r.studentId}</td>
@@ -152,14 +157,74 @@ export default function AdminResults() {
                   background: r.status === 'Pass' ? '#dcfce7' : '#fee2e2',
                   color: r.status === 'Pass' ? '#16a34a' : '#dc2626' }}>{r.status}</span></td>
                 <td>
-                  <button onClick={() => handleDelete(r._id)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: 6, padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}>
-                    <i className="ri-delete-bin-line"></i>
+                  <button onClick={() => handleDelete(r._id)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: 6, padding: '6px 12px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    <Trash2 size={15} />
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile View Result Cards (<= 768px) */}
+      <div className="mobile-results-cards">
+        {results.length === 0 ? (
+          <div className="results-empty-card">
+            <FileX size={38} className="results-empty-icon" />
+            <h3>No results found</h3>
+            <p>Try changing your search or class filter.</p>
+          </div>
+        ) : (
+          results.map((r) => (
+            <div key={r._id} className="result-card">
+              <div className="result-card-header">
+                <div className="result-card-user">
+                  <h3 className="result-card-name">{r.name}</h3>
+                  <span className="result-card-id">ID: {r.studentId}</span>
+                </div>
+                <div className="result-card-badges">
+                  <span className="result-badge-class">{r.class}</span>
+                  <span className="result-badge-exam">{r.exam}</span>
+                </div>
+              </div>
+
+              <div className="result-card-stats">
+                <div className="result-stat-item">
+                  <span className="result-stat-label">Total Score</span>
+                  <span className="result-stat-value">{r.total}</span>
+                </div>
+                <div className="result-stat-item">
+                  <span className="result-stat-label">Percentage</span>
+                  <span className="result-stat-value">{r.percentage}%</span>
+                </div>
+                <div className="result-stat-item">
+                  <span className="result-stat-label">Grade</span>
+                  <span className="result-stat-grade">{r.grade}</span>
+                </div>
+                <div className="result-stat-item">
+                  <span className="result-stat-label">Status</span>
+                  <span className={`result-stat-status ${r.status === 'Pass' ? 'pass' : 'fail'}`}>
+                    {r.status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="result-card-actions">
+                <button 
+                  type="button" 
+                  onClick={() => handleDelete(r._id)} 
+                  className="result-card-btn-delete"
+                  title="Delete Result"
+                  aria-label="Delete result"
+                >
+                  <Trash2 size={16} />
+                  <span>Delete</span>
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
