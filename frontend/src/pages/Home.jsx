@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import pgImg from '../assets/pg.jpg';
 import About from './About';
 import Contact from './Contact';
+import GallerySlider from '../components/GallerySlider';
 
 // Typewriter hook — cycles through an array of strings
 function useTypewriter(words, typingSpeed = 90, deletingSpeed = 55, pauseMs = 1800) {
@@ -136,6 +137,10 @@ export default function Home() {
                 <i className="fab fa-square-js" style={{ color: '#f7df1e' }}></i>
                 <span>JavaScript</span>
               </div>
+              <div className="skill-item">
+                <i className="fab fa-react" style={{ color: '#61dafb' }}></i>
+                <span>React</span>
+              </div>
             </div>
           </div>
 
@@ -197,6 +202,9 @@ export default function Home() {
 
       {/* About Section Consolidated */}
       <About />
+
+      {/* Photo Gallery Slider */}
+      <GallerySlider />
 
       {/* Contact Section Consolidated */}
       <Contact />
