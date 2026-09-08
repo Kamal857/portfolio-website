@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logoImg from '../assets/logo.png';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
   useEffect(() => {
@@ -27,14 +27,12 @@ export default function Navbar() {
     <>
       <header className={`navbar-header ${scrolled ? 'navbar-scrolled' : ''}`}>
         <nav className="navbar-inner">
-          {/* Logo */}
           <div className="navbar-logo">
             <Link to="/" onClick={closeMenu}>
-              <img src={logoImg} alt="Kamal Portfolio Logo" />
+              <img src={logoImg} alt="Logo" />
             </Link>
           </div>
 
-          {/* Desktop Links */}
           <ul className="navbar-links">
             {navLinks.map(({ to, label, end }) => (
               <li key={to}>
@@ -51,29 +49,32 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Mobile Hamburger */}
-          <button
-            className={`hamburger ${isOpen ? 'hamburger-open' : ''}`}
-            onClick={toggleMenu}
-            aria-label="Toggle navigation menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+          <div className="nav-controls">
+            <ThemeToggle />
+            <button
+              className={`hamburger ${isOpen ? 'hamburger-open' : ''}`}
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </nav>
       </header>
 
-      {/* Mobile Sidebar Overlay */}
       {isOpen && <div className="sidebar-overlay" onClick={closeMenu} />}
 
-      {/* Mobile Sidebar */}
       <div className={`mobile-sidebar ${isOpen ? 'mobile-sidebar-open' : ''}`}>
         <div className="sidebar-header">
           <span className="sidebar-brand">KB</span>
-          <button className="sidebar-close" onClick={closeMenu} aria-label="Close menu">
-            <i className="ri-close-line"></i>
-          </button>
+          <div className="sidebar-right">
+            <ThemeToggle />
+            <button className="sidebar-close" onClick={closeMenu} aria-label="Close menu">
+              <i className="ri-close-line" />
+            </button>
+          </div>
         </div>
         <ul className="sidebar-nav">
           {navLinks.map(({ to, label, end }) => (
