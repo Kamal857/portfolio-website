@@ -85,7 +85,7 @@ export default function TeacherAttendance() {
             :students.map((s,i)=>(
               <tr key={s._id}>
                 <td>{i+1}</td>
-                <td style={{fontWeight:600,color:"#0284c7"}}>{s.studentId}</td>
+                <td style={{fontWeight:600,color:"#09090b"}}>{s.studentId}</td>
                 <td style={{fontWeight:500}}>{s.name}</td>
                 <td>{s.rollNo}</td>
                 <td>

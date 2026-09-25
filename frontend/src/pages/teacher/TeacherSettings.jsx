@@ -58,32 +58,32 @@ export default function TeacherSettings() {
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"24px",marginTop:8}}>
 
         {/* Profile */}
-        <div style={{background:"#fff",borderRadius:"16px",padding:"32px",boxShadow:"0 4px 20px rgba(0,0,0,0.06)",borderTop:"4px solid #0ea5e9"}}>
+        <div style={{background:"#ffffff",borderRadius:"12px",padding:"32px",border:"1px solid #e4e4e7",borderTop:"4px solid #09090b",boxShadow:"0 1px 3px rgba(0,0,0,0.02)"}}>
           <div style={{display:"flex",alignItems:"center",gap:"12px",marginBottom:"24px"}}>
-            <div style={{width:44,height:44,borderRadius:"50%",background:"linear-gradient(135deg,#0ea5e9,#6366f1)",display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:"1.2rem"}}><i className="ri-user-3-line"/></div>
-            <div><h2 style={{margin:0,fontSize:"1.15rem",fontWeight:700,color:"#1e293b"}}>Profile Information</h2><p style={{margin:0,color:"#64748b",fontSize:"0.8rem"}}>{email}</p></div>
+            <div style={{width:44,height:44,borderRadius:"8px",background:"#f4f4f5",border:"1px solid #e4e4e7",display:"flex",alignItems:"center",justifyContent:"center",color:"#09090b",fontSize:"1.2rem"}}><i className="ri-user-3-line"/></div>
+            <div><h2 style={{margin:0,fontSize:"1.15rem",fontWeight:700,color:"#09090b"}}>Profile Information</h2><p style={{margin:0,color:"#71717a",fontSize:"0.8rem"}}>{email}</p></div>
           </div>
           {profileMsg.text&&<div style={msgStyle(profileMsg.type)}>{profileMsg.text}</div>}
           <form onSubmit={saveProfile} style={{display:"flex",flexDirection:"column",gap:"18px"}}>
             <div><label style={labelStyle}>Full Name</label><input type="text" value={profile.name} onChange={e=>setProfile(p=>({...p,name:e.target.value}))} placeholder="Your name" style={inputStyle}/></div>
-            <div><label style={labelStyle}>Subject</label><input type="text" value={profile.subject} readOnly style={{...inputStyle,background:"#f1f5f9",color:"#94a3b8",cursor:"not-allowed"}}/></div>
+            <div><label style={labelStyle}>Subject</label><input type="text" value={profile.subject} readOnly style={{...inputStyle,background:"#f4f4f5",color:"#71717a",cursor:"not-allowed"}}/></div>
             <div><label style={labelStyle}>Phone Number</label><input type="tel" value={profile.phone} onChange={e=>setProfile(p=>({...p,phone:e.target.value}))} placeholder="Phone number" style={inputStyle}/></div>
             <div><label style={labelStyle}>Assigned Class</label>
               <select value={profile.assignedClass} onChange={e=>setProfile(p=>({...p,assignedClass:e.target.value}))} style={inputStyle}>
                 {CLASSES.map(c=><option key={c} value={c}>{c||"Not Assigned"}</option>)}
               </select>
             </div>
-            <button type="submit" disabled={profileLoading} style={{padding:"12px",borderRadius:"10px",border:"none",background:"linear-gradient(135deg,#0ea5e9,#6366f1)",color:"#fff",fontWeight:700,fontSize:"0.95rem",cursor:profileLoading?"not-allowed":"pointer",opacity:profileLoading?0.7:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+            <button type="submit" disabled={profileLoading} className="admin-btn-dark" style={{padding:"12px",borderRadius:"8px",color:"#fff",fontWeight:700,fontSize:"0.92rem",cursor:profileLoading?"not-allowed":"pointer",opacity:profileLoading?0.7:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
               {profileLoading?<><i className="ri-loader-4-line"/> Saving...</>:<><i className="ri-save-line"/> Save Profile</>}
             </button>
           </form>
         </div>
 
         {/* Password */}
-        <div style={{background:"#fff",borderRadius:"16px",padding:"32px",boxShadow:"0 4px 20px rgba(0,0,0,0.06)",borderTop:"4px solid #f59e0b"}}>
+        <div style={{background:"#ffffff",borderRadius:"12px",padding:"32px",border:"1px solid #e4e4e7",borderTop:"4px solid #09090b",boxShadow:"0 1px 3px rgba(0,0,0,0.02)"}}>
           <div style={{display:"flex",alignItems:"center",gap:"12px",marginBottom:"24px"}}>
-            <div style={{width:44,height:44,borderRadius:"50%",background:"linear-gradient(135deg,#f59e0b,#ef4444)",display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:"1.2rem"}}><i className="ri-lock-password-line"/></div>
-            <div><h2 style={{margin:0,fontSize:"1.15rem",fontWeight:700,color:"#1e293b"}}>Change Password</h2><p style={{margin:0,color:"#64748b",fontSize:"0.8rem"}}>Keep your account secure</p></div>
+            <div style={{width:44,height:44,borderRadius:"8px",background:"#f4f4f5",border:"1px solid #e4e4e7",display:"flex",alignItems:"center",justifyContent:"center",color:"#09090b",fontSize:"1.2rem"}}><i className="ri-lock-password-line"/></div>
+            <div><h2 style={{margin:0,fontSize:"1.15rem",fontWeight:700,color:"#09090b"}}>Change Password</h2><p style={{margin:0,color:"#71717a",fontSize:"0.8rem"}}>Keep your account secure</p></div>
           </div>
           {pwMsg.text&&<div style={msgStyle(pwMsg.type)}>{pwMsg.text}</div>}
           <form onSubmit={savePassword} style={{display:"flex",flexDirection:"column",gap:"18px"}}>
@@ -94,7 +94,7 @@ export default function TeacherSettings() {
             <div><label style={labelStyle}>Confirm Password</label><div style={{position:"relative"}}><input type={showConfirm?"text":"password"} value={pwForm.confirm} onChange={e=>setPwForm(p=>({...p,confirm:e.target.value}))} required style={{...inputStyle,paddingRight:"44px",borderColor:pwForm.confirm&&pwForm.next!==pwForm.confirm?"#ef4444":"#e2e8f0"}}/>{eyeBtn(setShowConfirm,showConfirm)}</div>
               {pwForm.confirm&&pwForm.next!==pwForm.confirm&&<p style={{margin:"4px 0 0",fontSize:"0.75rem",color:"#ef4444"}}>Passwords do not match</p>}
             </div>
-            <button type="submit" disabled={pwLoading} style={{padding:"12px",borderRadius:"10px",border:"none",background:"linear-gradient(135deg,#f59e0b,#ef4444)",color:"#fff",fontWeight:700,fontSize:"0.95rem",cursor:pwLoading?"not-allowed":"pointer",opacity:pwLoading?0.7:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8,marginTop:4}}>
+            <button type="submit" disabled={pwLoading} className="admin-btn-dark" style={{padding:"12px",borderRadius:"8px",color:"#fff",fontWeight:700,fontSize:"0.92rem",cursor:pwLoading?"not-allowed":"pointer",opacity:pwLoading?0.7:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8,marginTop:4}}>
               {pwLoading?<><i className="ri-loader-4-line"/> Updating...</>:<><i className="ri-lock-line"/> Update Password</>}
             </button>
           </form>

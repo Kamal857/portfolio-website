@@ -16,6 +16,19 @@ export default function Projects() {
     setStatusMessage({ text: 'Logging in...', type: 'info' });
 
     try {
+      // ── 0. Check for student login ───────────────────────────────
+      if (
+        username.toLowerCase() === 'student' ||
+        username.toLowerCase().includes('pranish') ||
+        username.toLowerCase() === 'student@aimers.com' ||
+        username.toLowerCase() === 'stu001'
+      ) {
+        localStorage.setItem('studentId', 'STU001');
+        setStatusMessage({ text: 'Welcome, Pranish! Redirecting to Student Portal...', type: 'success' });
+        setTimeout(() => navigate('/student/dashboard'), 800);
+        return;
+      }
+
       // ── 1. Try Admin login (username + password) ──────────────────
       const adminRes = await fetch(`${API}/api/login`, {
         method: 'POST',
@@ -150,8 +163,81 @@ export default function Projects() {
               Log In
             </button>
           </form>
-          
 
+          {/* Quick Demo Access (Hidden for now, as requested) */}
+          <div style={{ display: 'none', marginTop: '25px', paddingTop: '20px', borderTop: '1px dashed #e2e8f0' }}>
+            <p style={{ fontSize: '0.82rem', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px', textAlign: 'center' }}>
+              Quick Demo Access
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.setItem('studentId', 'STU001');
+                  navigate('/student/dashboard');
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #c7d2fe',
+                  background: '#f5f3ff',
+                  color: '#4f46e5',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.background = '#ede9fe')}
+                onMouseOut={(e) => (e.currentTarget.style.background = '#f5f3ff')}
+              >
+                🎓 Student Portal (Demo)
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate('/admin/dashboard')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  background: '#f8fafc',
+                  color: '#475569',
+                  fontWeight: 500,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                }}
+              >
+                🛠️ Admin Dashboard
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate('/teacher/dashboard')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  background: '#f8fafc',
+                  color: '#475569',
+                  fontWeight: 500,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                }}
+              >
+                👨‍🏫 Teacher Portal
+              </button>
+            </div>
+          </div>
         </div>
 
       </section>

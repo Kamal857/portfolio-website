@@ -24,11 +24,12 @@ export default function AdminLayout() {
 
   const username = localStorage.getItem('adminUsername') || 'admin';
   const [profile, setProfile] = useState({ name: '', email: '', phone: '', address: '' });
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   // Fetch profile every time route changes
   useEffect(() => {
-    setIsSidebarOpen(false);
+    setIsMobileOpen(false);
 
     fetch(`${API}/api/profile/${username}`)
       .then(r => r.json())
@@ -37,6 +38,14 @@ export default function AdminLayout() {
       })
       .catch(() => { });
   }, [username, location.pathname]);
+
+  const handleToggle = () => {
+    if (window.innerWidth <= 768) {
+      setIsMobileOpen(prev => !prev);
+    } else {
+      setIsCollapsed(prev => !prev);
+    }
+  };
 
   const displayName = profile.name || username;
   const displayEmail = profile.email || `${username}@admin.local`;
@@ -51,7 +60,7 @@ export default function AdminLayout() {
     { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { name: 'Students', path: '/admin/students', icon: UsersRound },
     { name: 'Teachers', path: '/admin/teachers', icon: GraduationCap },
-    { name: 'Classes', path: '/admin/classes', icon: School },
+    { name: 'Batches', path: '/admin/classes', icon: School },
     { name: 'Results', path: '/admin/results', icon: ChartNoAxesColumnIncreasing },
     { name: 'Attendance', path: '/admin/attendance', icon: ClipboardCheck },
     { name: 'Notices', path: '/admin/notices', icon: Bell },
@@ -65,16 +74,16 @@ export default function AdminLayout() {
   return (
     <div className="admin-layout">
       {/* Mobile Backdrop Overlay */}
-      {isSidebarOpen && (
+      {isMobileOpen && (
         <div
           className="admin-sidebar-overlay"
-          onClick={() => setIsSidebarOpen(false)}
+          onClick={() => setIsMobileOpen(false)}
           aria-label="Close navigation overlay"
         ></div>
       )}
 
       {/* Responsive Sidebar */}
-      <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
+      <aside className={`admin-sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'open' : ''}`}>
         <div className="admin-brand">
           <div className="admin-logo">
             <GraduationCap size={22} strokeWidth={2} />
@@ -86,7 +95,7 @@ export default function AdminLayout() {
           <button
             type="button"
             className="admin-sidebar-close-btn"
-            onClick={() => setIsSidebarOpen(false)}
+            onClick={() => setIsMobileOpen(false)}
             aria-label="Close navigation sidebar"
             title="Close menu"
           >
@@ -104,7 +113,7 @@ export default function AdminLayout() {
                     to={item.path}
                     className={({ isActive }) => isActive ? 'admin-nav-link active' : 'admin-nav-link'}
                     title={item.name}
-                    onClick={() => setIsSidebarOpen(false)}
+                    onClick={() => setIsMobileOpen(false)}
                   >
                     <IconComp size={20} strokeWidth={1.8} className="admin-nav-icon" />
                     <span className="admin-nav-text">{item.name}</span>
@@ -134,9 +143,9 @@ export default function AdminLayout() {
           <div className="admin-header-left">
             <button
               className="admin-menu-toggle"
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              onClick={handleToggle}
               aria-label="Toggle navigation menu"
-              title="Open menu"
+              title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
               <Menu size={20} strokeWidth={2} />
             </button>

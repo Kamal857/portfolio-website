@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AdminLayout from './components/AdminLayout';
 import TeacherLayout from './components/TeacherLayout';
+import StudentLayout from './components/StudentLayout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Research from './pages/Research';
@@ -28,6 +29,14 @@ import TeacherAttendance from './pages/teacher/TeacherAttendance';
 import TeacherResults from './pages/teacher/TeacherResults';
 import TeacherNotices from './pages/teacher/TeacherNotices';
 import TeacherSettings from './pages/teacher/TeacherSettings';
+
+import StudentDashboard from './pages/student/StudentDashboard';
+import StudentTimetable from './pages/student/StudentTimetable';
+import StudentReportCard from './pages/student/StudentReportCard';
+import StudentTestResults from './pages/student/StudentTestResults';
+import StudentExamResult from './pages/student/StudentExamResult';
+import StudentNotices from './pages/student/StudentNotices';
+import StudentSettings from './pages/student/StudentSettings';
 
 export default function App() {
   useEffect(() => {
@@ -67,6 +76,18 @@ export default function App() {
         <Route path="results" element={<TeacherResults />} />
         <Route path="notices" element={<TeacherNotices />} />
         <Route path="settings" element={<TeacherSettings />} />
+      </Route>
+
+      {/* Student routes */}
+      <Route path="/student" element={<StudentLayout />}>
+        <Route index element={<Navigate to="/student/dashboard" replace />} />
+        <Route path="dashboard" element={<StudentDashboard />} />
+        <Route path="timetable" element={<StudentTimetable />} />
+        <Route path="report-card" element={<StudentReportCard />} />
+        <Route path="test-results" element={<StudentTestResults />} />
+        <Route path="exam-result" element={<StudentExamResult />} />
+        <Route path="notices" element={<StudentNotices />} />
+        <Route path="settings" element={<StudentSettings />} />
       </Route>
     </Routes>
   );
