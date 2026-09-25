@@ -77,11 +77,11 @@ export default function AdminNotices() {
             No notices posted yet.
           </div>
         ) : notices.map(n => (
-          <div key={n._id} style={{ background: '#fff', borderRadius: 14, padding: '18px 20px', border: '1px solid rgba(14,165,233,0.12)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
+          <div key={n._id} style={{ background: '#ffffff', borderRadius: 10, padding: '18px 20px', border: '1px solid #e4e4e7', borderLeft: '4px solid #f59e0b', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
             <div>
-              <p style={{ fontWeight: 700, color: '#0284c7', fontSize: '1rem', marginBottom: 4 }}>{n.title}</p>
-              <p style={{ color: '#555', fontSize: '0.9rem', lineHeight: 1.6 }}>{n.content}</p>
-              <p style={{ color: '#bbb', fontSize: '0.75rem', marginTop: 8 }}>{new Date(n.createdAt).toLocaleString()}</p>
+              <p style={{ fontWeight: 700, color: '#09090b', fontSize: '1rem', marginBottom: 4 }}>{n.title}</p>
+              <p style={{ color: '#52525b', fontSize: '0.9rem', lineHeight: 1.6 }}>{n.content}</p>
+              <p style={{ color: '#a1a1aa', fontSize: '0.75rem', marginTop: 8 }}>{new Date(n.createdAt).toLocaleString()}</p>
             </div>
             <button onClick={() => handleDelete(n._id)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', fontWeight: 600, flexShrink: 0 }}>
               <i className="ri-delete-bin-line"></i>

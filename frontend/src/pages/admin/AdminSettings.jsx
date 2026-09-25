@@ -90,19 +90,20 @@ export default function AdminSettings() {
   const labelStyle = { display: "block", marginBottom: "6px", fontWeight: 600, color: "#374151", fontSize: "0.875rem" };
 
   const cardStyle = (color) => ({
-    background: "#fff", borderRadius: "16px", padding: "32px",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.06)", borderTop: `4px solid ${color}`,
+    background: "#ffffff", borderRadius: "12px", padding: "32px",
+    boxShadow: "0 1px 3px rgba(0,0,0,0.02)", border: "1px solid #e4e4e7", borderTop: `4px solid ${color || '#09090b'}`,
   });
 
-  const iconBadge = (gradient) => ({
-    width: 44, height: 44, borderRadius: "50%", background: gradient,
-    display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: "1.2rem",
+  const iconBadge = () => ({
+    width: 44, height: 44, borderRadius: "8px", background: "#f4f4f5",
+    border: "1px solid #e4e4e7", display: "flex", alignItems: "center",
+    justifyContent: "center", color: "#09090b", fontSize: "1.2rem",
   });
 
   const eyeBtn = (setter) => ({
     onClick: () => setter(v => !v),
     type: "button",
-    style: { position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#64748b", fontSize: "1rem" },
+    style: { position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#71717a", fontSize: "1rem" },
   });
 
   const pwStrength = len => len < 6 ? { w: "33%", c: "#ef4444", label: "Weak" } : len < 10 ? { w: "66%", c: "#f59e0b", label: "Moderate" } : { w: "100%", c: "#22c55e", label: "Strong" };
@@ -118,12 +119,12 @@ export default function AdminSettings() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginTop: "8px" }}>
 
         {/* Profile Card */}
-        <div style={cardStyle("#0ea5e9")}>
+        <div style={cardStyle("#09090b")}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
-            <div style={iconBadge("linear-gradient(135deg,#0ea5e9,#6366f1)")}><i className="ri-user-3-line" /></div>
+            <div style={iconBadge()}><i className="ri-user-3-line" /></div>
             <div>
-              <h2 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 700, color: "#1e293b" }}>Profile Information</h2>
-              <p style={{ margin: 0, color: "#64748b", fontSize: "0.8rem" }}>Update your name, email & contact details</p>
+              <h2 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 700, color: "#09090b" }}>Profile Information</h2>
+              <p style={{ margin: 0, color: "#71717a", fontSize: "0.8rem" }}>Update your name, email & contact details</p>
             </div>
           </div>
 
@@ -132,7 +133,7 @@ export default function AdminSettings() {
           <form onSubmit={saveProfile} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
             <div>
               <label style={labelStyle}>Username</label>
-              <input type="text" value={username} readOnly style={{ ...inputStyle, background: "#f1f5f9", color: "#94a3b8", cursor: "not-allowed" }} />
+              <input type="text" value={username} readOnly style={{ ...inputStyle, background: "#f4f4f5", color: "#71717a", cursor: "not-allowed" }} />
             </div>
             <div>
               <label style={labelStyle}>Full Name</label>
@@ -150,10 +151,9 @@ export default function AdminSettings() {
               <label style={labelStyle}>Address</label>
               <textarea name="address" value={profile.address} onChange={handleProfileChange} placeholder="Enter your address" rows={3} style={{ ...inputStyle, resize: "vertical" }} />
             </div>
-            <button type="submit" disabled={profileLoading} style={{
-              padding: "12px", borderRadius: "10px", border: "none",
-              background: "linear-gradient(135deg,#0ea5e9,#6366f1)", color: "#fff", fontWeight: 700,
-              fontSize: "0.95rem", cursor: profileLoading ? "not-allowed" : "pointer", opacity: profileLoading ? 0.7 : 1,
+            <button type="submit" disabled={profileLoading} className="admin-btn-dark" style={{
+              padding: "12px", borderRadius: "8px", color: "#fff", fontWeight: 700,
+              fontSize: "0.92rem", cursor: profileLoading ? "not-allowed" : "pointer", opacity: profileLoading ? 0.7 : 1,
               display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
             }}>
               {profileLoading ? <><i className="ri-loader-4-line" /> Saving...</> : <><i className="ri-save-line" /> Save Profile</>}
@@ -162,12 +162,12 @@ export default function AdminSettings() {
         </div>
 
         {/* Password Card */}
-        <div style={cardStyle("#f59e0b")}>
+        <div style={cardStyle("#09090b")}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
-            <div style={iconBadge("linear-gradient(135deg,#f59e0b,#ef4444)")}><i className="ri-lock-password-line" /></div>
+            <div style={iconBadge()}><i className="ri-lock-password-line" /></div>
             <div>
-              <h2 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 700, color: "#1e293b" }}>Change Password</h2>
-              <p style={{ margin: 0, color: "#64748b", fontSize: "0.8rem" }}>Keep your account secure</p>
+              <h2 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 700, color: "#09090b" }}>Change Password</h2>
+              <p style={{ margin: 0, color: "#71717a", fontSize: "0.8rem" }}>Keep your account secure</p>
             </div>
           </div>
 
@@ -207,10 +207,9 @@ export default function AdminSettings() {
                 <p style={{ margin: "4px 0 0", fontSize: "0.75rem", color: "#ef4444" }}>Passwords do not match</p>
               )}
             </div>
-            <button type="submit" disabled={pwLoading} style={{
-              padding: "12px", borderRadius: "10px", border: "none",
-              background: "linear-gradient(135deg,#f59e0b,#ef4444)", color: "#fff", fontWeight: 700,
-              fontSize: "0.95rem", cursor: pwLoading ? "not-allowed" : "pointer", opacity: pwLoading ? 0.7 : 1,
+            <button type="submit" disabled={pwLoading} className="admin-btn-dark" style={{
+              padding: "12px", borderRadius: "8px", color: "#fff", fontWeight: 700,
+              fontSize: "0.92rem", cursor: pwLoading ? "not-allowed" : "pointer", opacity: pwLoading ? 0.7 : 1,
               display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginTop: "4px",
             }}>
               {pwLoading ? <><i className="ri-loader-4-line" /> Updating...</> : <><i className="ri-lock-line" /> Update Password</>}

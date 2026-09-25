@@ -12,7 +12,6 @@ import {
   LogOut,
   Menu,
   X,
-  ArrowLeft
 } from "lucide-react";
 
 import { API } from "../config";
@@ -22,17 +21,26 @@ export default function TeacherLayout() {
   const location = useLocation();
   const email = localStorage.getItem("teacherEmail") || "";
   const [profile, setProfile] = useState({ name: "", subject: "", assignedClass: "" });
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
     // Close sidebar on route change on mobile
-    setIsSidebarOpen(false);
+    setIsMobileOpen(false);
     if (!email) { navigate("/projects"); return; }
     fetch(`${API}/api/teacher/profile/${encodeURIComponent(email)}`)
       .then(r => r.json())
       .then(d => { if (d.name) setProfile({ name: d.name, subject: d.subject || "", assignedClass: d.assignedClass || "" }); })
       .catch(() => { });
   }, [email, location.pathname]);
+
+  const handleToggle = () => {
+    if (window.innerWidth <= 768) {
+      setIsMobileOpen(prev => !prev);
+    } else {
+      setIsCollapsed(prev => !prev);
+    }
+  };
 
   const displayName = profile.name || email;
   const avatarLetter = displayName.charAt(0).toUpperCase();
@@ -56,11 +64,11 @@ export default function TeacherLayout() {
   return (
     <div className="admin-layout">
       {/* Mobile Sidebar Overlay */}
-      {isSidebarOpen && (
-        <div className="admin-sidebar-overlay" onClick={() => setIsSidebarOpen(false)} aria-label="Close navigation overlay"></div>
+      {isMobileOpen && (
+        <div className="admin-sidebar-overlay" onClick={() => setIsMobileOpen(false)} aria-label="Close navigation overlay"></div>
       )}
 
-      <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
+      <aside className={`admin-sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'open' : ''}`}>
         <div className="admin-brand">
           <div className="admin-logo">
             <GraduationCap size={22} strokeWidth={2} />
@@ -72,7 +80,7 @@ export default function TeacherLayout() {
           <button
             type="button"
             className="admin-sidebar-close-btn"
-            onClick={() => setIsSidebarOpen(false)}
+            onClick={() => setIsMobileOpen(false)}
             aria-label="Close navigation sidebar"
             title="Close menu"
           >
@@ -90,7 +98,7 @@ export default function TeacherLayout() {
                     to={item.path}
                     className={({ isActive }) => isActive ? "admin-nav-link active" : "admin-nav-link"}
                     title={item.name}
-                    onClick={() => setIsSidebarOpen(false)}
+                    onClick={() => setIsMobileOpen(false)}
                   >
                     <IconComp size={20} strokeWidth={1.8} className="admin-nav-icon" />
                     <span className="admin-nav-text">{item.name}</span>
@@ -116,13 +124,19 @@ export default function TeacherLayout() {
       <main className="admin-main">
         <header className="admin-header">
           <div className="admin-header-left">
-            <button className="admin-menu-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)} aria-label="Toggle navigation menu">
+            <button className="admin-menu-toggle" onClick={handleToggle} aria-label="Toggle navigation menu" title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}>
               <Menu size={20} strokeWidth={2} />
             </button>
+            <div className="admin-header-title">
+              <h2>Teacher Portal</h2>
+            </div>
           </div>
           <div className="admin-header-right">
-            <span className="admin-header-email">{email}</span>
-            <div className="admin-avatar" style={{ background: "linear-gradient(135deg,#0ea5e9,#6366f1)" }} title={displayName}>{avatarLetter}</div>
+            <div className="admin-header-user">
+              <span className="admin-header-email">{email}</span>
+              <span className="admin-header-badge">{profile.subject || "Teacher"}</span>
+            </div>
+            <div className="admin-avatar" style={{ background: "#09090b", color: "#ffffff", border: "1px solid #27272a" }} title={displayName}>{avatarLetter}</div>
           </div>
         </header>
         <div className="admin-content">

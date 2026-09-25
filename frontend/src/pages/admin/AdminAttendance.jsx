@@ -105,7 +105,7 @@ export default function AdminAttendance() {
             <tbody>
               {students.map(s => (
                 <tr key={s._id}>
-                  <td style={{ fontWeight: 600, color: '#0284c7' }}>{s.studentId}</td>
+                  <td style={{ fontWeight: 600, color: '#09090b' }}>{s.studentId}</td>
                   <td style={{ fontWeight: 500 }}>{s.name}</td>
                   <td>{s.rollNo}</td>
                   <td>
